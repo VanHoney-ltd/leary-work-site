@@ -40,16 +40,16 @@ export interface HeroConfig {
 
 export const heroConfig: HeroConfig = {
   backgroundImage: "/hero-bg.jpg",
-  brandName: "PORTFOLIO",
-  decodeText: "CREATIVE",
+  brandName: "Van Honey Ltd",
+  decodeText: "TARRIN PEARSON_LEARY",
   decodeChars: "█▓▒░█▓▒░",
-  subtitle: "Carpenter. Artist. Business Developer. Software Engineer. Building brands, crafting art, and coding the future.",
+  subtitle: "Carpenter. Artist. Business Developer. Software Enthusiast. Building brands, crafting art, and designing the future.",
   ctaPrimary: "EXPLORE WORK",
   ctaPrimaryTarget: "oldstandard",
   ctaSecondary: "VIEW ART",
   ctaSecondaryTarget: "artful-inquiry",
   cornerLabel: "ESTABLISHED",
-  cornerDetail: "1999",
+  cornerDetail: "1985",
   navItems: [
     { label: "Construction", sectionId: "oldstandard", icon: "disc" },
     { label: "Art", sectionId: "artful-inquiry", icon: "play" },
@@ -100,7 +100,7 @@ export const oldStandardConfig: OldStandardConfig = {
   stats: {
     yearsExperience: "26+",
     projectsCompleted: "1000+",
-    statesWorked: "6",
+    statesWorked: "39",
   },
   ctaText: "Ready to build something extraordinary?",
   ctaButtonText: "GET A QUOTE",
@@ -130,7 +130,7 @@ export const artfulInquiryConfig: ArtfulInquiryConfig = {
   sectionLabel: "DARK ART",
   sectionTitle: "ARTFUL INQUIRY",
   artistName: "Artful Inquiry",
-  description: "Over 300 original ink-on-paper masterpieces. Dark, twisted, dripping expressions of the human condition. Each piece tells a story of mortality, myth, and the beauty found in darkness.",
+  description: "All original ink-on-paper masterpieces. Dark, twisted, dripping expressions of the human condition. Each piece tells a story of mortality, myth, and the beauty found in darkness.",
   videoThumbnail: "/artwork-video-thumbnail.jpg",
   videoSrc: "/grok-video-0a64f1e0-fcff-49fc-9abc-4b770c2f8b97(2).mp4",
   cubeTextures: [
