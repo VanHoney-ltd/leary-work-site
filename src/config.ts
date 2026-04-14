@@ -41,7 +41,7 @@ export interface HeroConfig {
 export const heroConfig: HeroConfig = {
   backgroundImage: "/hero-bg.jpg",
   brandName: "Van Honey Ltd",
-  decodeText: "TARRIN PEARSON_LEARY",
+  decodeText: "TARRIN PEARSON-LEARY",
   decodeChars: "█▓▒░█▓▒░",
   subtitle: "Carpenter. Artist. Business Developer. Software Enthusiast. Building brands, crafting art, and designing the future.",
   ctaPrimary: "EXPLORE WORK",
