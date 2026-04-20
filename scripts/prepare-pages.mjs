@@ -1,4 +1,4 @@
-import { copyFileSync, existsSync, mkdirSync, writeFileSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync, readdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -19,3 +19,27 @@ writeFileSync(noJekyllFile, "");
 
 // Keep the dist/assets directory intact even if this runs before assets are generated.
 mkdirSync(join(distDir, "assets"), { recursive: true });
+
+// Copy NovaSignal app to dist/novasignal after build
+const novaSignalSource = join(rootDir, "..", "NovaSignal", "app", "dist");
+const novaSignalDest = join(distDir, "novasignal");
+
+if (existsSync(novaSignalSource)) {
+  mkdirSync(novaSignalDest, { recursive: true });
+  const files = readdirSync(novaSignalSource);
+  for (const file of files) {
+    const srcPath = join(novaSignalSource, file);
+    const destPath = join(novaSignalDest, file);
+    if (existsSync(srcPath)) {
+      if (file === "assets") {
+        mkdirSync(destPath, { recursive: true });
+        const assetFiles = readdirSync(srcPath);
+        for (const assetFile of assetFiles) {
+          copyFileSync(join(srcPath, assetFile), join(destPath, assetFile));
+        }
+      } else {
+        copyFileSync(srcPath, destPath);
+      }
+    }
+  }
+}
