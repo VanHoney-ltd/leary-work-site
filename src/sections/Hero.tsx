@@ -28,7 +28,17 @@ const Hero = () => {
   const [displayText, setDisplayText] = useState(' '.repeat(TARGET_TEXT.length));
   const [isDecoding, setIsDecoding] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const navigate = useNavigate();
+
+  // Track scroll position for sticky nav
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Decode text effect
   useEffect(() => {
@@ -115,7 +125,11 @@ const Hero = () => {
       {/* Navigation pill — desktop */}
       <nav
         ref={navRef}
-        className="fixed top-6 lg:top-8 left-1/2 -translate-x-1/2 z-50 nav-pill rounded-full px-2 py-2 md:px-4 md:py-3 lg:px-8 lg:py-5 hidden lg:block"
+        className={`fixed left-1/2 -translate-x-1/2 z-50 nav-pill rounded-full px-2 py-2 md:px-4 md:py-3 lg:px-8 lg:py-5 hidden lg:block transition-all duration-300 ${
+          isScrolled 
+            ? 'top-4' 
+            : 'top-[45%]'
+        } bg-void-black/80 backdrop-blur-md border border-white/10`}
       >
         <div className="flex items-center gap-1 md:gap-2 lg:gap-4">
           {heroConfig.navItems.map((item) => {
@@ -137,7 +151,9 @@ const Hero = () => {
       {/* Hamburger — mobile / tablet */}
       <button
         onClick={() => setIsMenuOpen(true)}
-        className="fixed top-6 right-6 z-50 p-3 nav-pill rounded-full text-white/80 hover:text-white transition-colors lg:hidden"
+        className={`fixed right-6 z-50 p-3 nav-pill rounded-full text-white/80 hover:text-white transition-colors lg:hidden transition-all duration-300 ${
+          isScrolled ? 'top-20' : 'top-24'
+        }`}
         aria-label="Open menu"
       >
         <Menu className="w-6 h-6" />
