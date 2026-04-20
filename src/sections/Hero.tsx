@@ -20,7 +20,6 @@ const Hero = () => {
   }
 
   const heroRef = useRef<HTMLDivElement>(null);
-  const navRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const TARGET_TEXT = heroConfig.decodeText;
@@ -72,13 +71,6 @@ const Hero = () => {
   // GSAP animations
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Nav slide in
-      gsap.fromTo(
-        navRef.current,
-        { y: -100, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.3 }
-      );
-
       // Subtitle fade in
       gsap.fromTo(
         subtitleRef.current,
@@ -122,36 +114,10 @@ const Hero = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-void-black/30 to-void-black" />
       </div>
 
-      {/* Navigation pill — desktop */}
-      <nav
-        ref={navRef}
-        className={`fixed left-1/2 -translate-x-1/2 z-50 nav-pill rounded-full px-2 py-2 md:px-4 md:py-3 lg:px-8 lg:py-5 hidden lg:block transition-all duration-300 ${
-          isScrolled 
-            ? 'top-4' 
-            : 'top-[45%]'
-        } bg-void-black/80 backdrop-blur-md border border-white/10`}
-      >
-        <div className="flex items-center gap-1 md:gap-2 lg:gap-4">
-          {heroConfig.navItems.map((item) => {
-            const IconComponent = ICON_MAP[item.icon];
-            return (
-              <button
-                key={item.sectionId}
-                onClick={() => handleNavClick(item)}
-                className="flex items-center gap-2 px-4 py-2 text-xs md:text-sm lg:text-base font-mono-custom uppercase tracking-wider text-white/80 hover:text-white transition-colors rounded-full hover:bg-white/5"
-              >
-                <IconComponent className="w-3.5 h-3.5 md:w-4 md:h-4 lg:w-6 lg:h-6" />
-                <span>{item.label}</span>
-              </button>
-            );
-          })}
-        </div>
-      </nav>
-
-      {/* Hamburger — mobile / tablet */}
+      {/* Hamburger menu — all devices */}
       <button
         onClick={() => setIsMenuOpen(true)}
-        className={`fixed right-6 z-50 p-3 nav-pill rounded-full text-white/80 hover:text-white transition-colors lg:hidden transition-all duration-300 ${
+        className={`fixed right-6 z-50 p-3 nav-pill rounded-full text-white/80 hover:text-white transition-colors transition-all duration-300 ${
           isScrolled ? 'top-20' : 'top-24'
         }`}
         aria-label="Open menu"
@@ -159,9 +125,9 @@ const Hero = () => {
         <Menu className="w-6 h-6" />
       </button>
 
-      {/* Mobile menu overlay */}
+      {/* Menu overlay */}
       {isMenuOpen && (
-        <div className="fixed inset-0 z-[60] bg-void-black/95 backdrop-blur-lg flex flex-col items-center justify-center gap-8 lg:hidden">
+        <div className="fixed inset-0 z-[60] bg-void-black/95 backdrop-blur-lg flex flex-col items-center justify-center gap-8">
           <button
             onClick={() => setIsMenuOpen(false)}
             className="absolute top-6 right-6 p-3 text-white/80 hover:text-white transition-colors"
