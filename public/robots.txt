@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://leary.work/sitemap.xml

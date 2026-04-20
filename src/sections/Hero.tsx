@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
-import { Play, Music, Disc, Calendar, Briefcase, Code } from 'lucide-react';
+import { Play, Music, Disc, Calendar, Briefcase, Code, Menu, X } from 'lucide-react';
 import { heroConfig } from '../config';
 
 const ICON_MAP = {
@@ -26,6 +26,7 @@ const Hero = () => {
   const CHARS = heroConfig.decodeChars || 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
   const [displayText, setDisplayText] = useState(' '.repeat(TARGET_TEXT.length));
   const [isDecoding, setIsDecoding] = useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // Decode text effect
   useEffect(() => {
@@ -101,27 +102,65 @@ const Hero = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-void-black/30 to-void-black" />
       </div>
 
-      {/* Navigation pill */}
+      {/* Navigation pill — desktop */}
       <nav
         ref={navRef}
-        className="fixed top-6 left-1/2 -translate-x-1/2 z-50 nav-pill rounded-full px-2 py-2"
+        className="fixed top-6 lg:top-8 left-1/2 -translate-x-1/2 z-50 nav-pill rounded-full px-2 py-2 md:px-4 md:py-3 lg:px-8 lg:py-5 hidden lg:block"
       >
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1 md:gap-2 lg:gap-4">
           {heroConfig.navItems.map((item) => {
             const IconComponent = ICON_MAP[item.icon];
             return (
               <button
                 key={item.sectionId}
                 onClick={() => scrollToSection(item.sectionId)}
-                className="flex items-center gap-2 px-4 py-2 text-xs font-mono-custom uppercase tracking-wider text-white/80 hover:text-white transition-colors rounded-full hover:bg-white/5"
+                className="flex items-center gap-2 px-4 py-2 text-xs md:text-sm lg:text-base font-mono-custom uppercase tracking-wider text-white/80 hover:text-white transition-colors rounded-full hover:bg-white/5"
               >
-                <IconComponent className="w-3.5 h-3.5" />
+                <IconComponent className="w-3.5 h-3.5 md:w-4 md:h-4 lg:w-6 lg:h-6" />
                 <span>{item.label}</span>
               </button>
             );
           })}
         </div>
       </nav>
+
+      {/* Hamburger — mobile / tablet */}
+      <button
+        onClick={() => setIsMenuOpen(true)}
+        className="fixed top-6 right-6 z-50 p-3 nav-pill rounded-full text-white/80 hover:text-white transition-colors lg:hidden"
+        aria-label="Open menu"
+      >
+        <Menu className="w-6 h-6" />
+      </button>
+
+      {/* Mobile menu overlay */}
+      {isMenuOpen && (
+        <div className="fixed inset-0 z-[60] bg-void-black/95 backdrop-blur-lg flex flex-col items-center justify-center gap-8 lg:hidden">
+          <button
+            onClick={() => setIsMenuOpen(false)}
+            className="absolute top-6 right-6 p-3 text-white/80 hover:text-white transition-colors"
+            aria-label="Close menu"
+          >
+            <X className="w-8 h-8" />
+          </button>
+          {heroConfig.navItems.map((item) => {
+            const IconComponent = ICON_MAP[item.icon];
+            return (
+              <button
+                key={item.sectionId}
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  scrollToSection(item.sectionId);
+                }}
+                className="flex items-center gap-4 text-2xl font-mono-custom uppercase tracking-wider text-white/80 hover:text-white transition-colors py-3"
+              >
+                <IconComponent className="w-7 h-7" />
+                <span>{item.label}</span>
+              </button>
+            );
+          })}
+        </div>
+      )}
 
       {/* Hero content */}
       <div className="relative z-10 flex flex-col items-center justify-end h-full pb-20 px-4">
@@ -182,9 +221,9 @@ const Hero = () => {
       <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-neon-cyan/30 to-transparent" />
 
       {/* Corner accents */}
-      <div className="absolute top-8 right-8 text-right">
-        <p className="font-mono-custom text-xs text-white/40 uppercase tracking-wider">{heroConfig.cornerLabel}</p>
-        <p className="font-mono-custom text-xs text-neon-soft/60">{heroConfig.cornerDetail}</p>
+      <div className="absolute top-8 right-8 lg:right-8 text-right">
+        <p className="font-mono-custom text-sm md:text-base text-white/80 uppercase tracking-wider">{heroConfig.cornerLabel}</p>
+        <p className="font-mono-custom text-sm md:text-base text-neon-soft/80">{heroConfig.cornerDetail}</p>
       </div>
     </section>
   );

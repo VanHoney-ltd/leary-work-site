@@ -11,7 +11,8 @@ export interface SiteConfig {
 
 export const siteConfig: SiteConfig = {
   title: "Portfolio | Old Standard · Artful Inquiry · NovaSignal · GhostSec",
-  description: "Master carpenter, dark artist, business developer, and software engineer. A portfolio of craftsmanship, creativity, and code.",
+  description:
+    "Master carpenter, dark artist, business developer, and software engineer. A portfolio of craftsmanship, creativity, and code.",
   language: "en",
 };
 
@@ -42,8 +43,9 @@ export const heroConfig: HeroConfig = {
   backgroundImage: "/hero-bg.jpg",
   brandName: "Van Honey Ltd",
   decodeText: "TARRIN PEARSON-LEARY",
-  decodeChars: "█▓▒░█▓▒░",
-  subtitle: "Carpenter. Artist. Business Developer. Software Enthusiast. Building brands, crafting art, and designing the future.",
+  decodeChars: "YRAEL█▓▒░-NOSRAEP█▓▒░NIRRAT",
+  subtitle:
+    "Carpenter. Artist. Business Developer. Software Enthusiast. Building brands, crafting art, and designing the future.",
   ctaPrimary: "EXPLORE WORK",
   ctaPrimaryTarget: "oldstandard",
   ctaSecondary: "VIEW ART",
@@ -88,14 +90,51 @@ export const oldStandardConfig: OldStandardConfig = {
   sectionLabel: "CONSTRUCTION",
   sectionTitle: "OLD STANDARD",
   businessName: "Old Standard Construction",
-  description: "26 years of master craftsmanship in residential remodeling, historical renovations, and custom finish carpentry. From Brownstones in SoHo to high-rise apartments in Denver.",
+  description:
+    "26 years of master craftsmanship in residential remodeling, historical renovations, and custom finish carpentry. From Brownstones in SoHo to high-rise apartments in Denver.",
   projects: [
-    { id: 1, image: "/construction-1.jpg", title: "Custom Kitchen", category: "Residential", location: "Upstate NY" },
-    { id: 2, image: "/construction-2.jpg", title: "Brownstone Restoration", category: "Historical", location: "SoHo, NYC" },
-    { id: 3, image: "/construction-3.jpg", title: "Luxury Bathroom", category: "Residential", location: "Westchester" },
-    { id: 4, image: "/construction-4.jpg", title: "Custom Deck", category: "Outdoor", location: "Putnam County" },
-    { id: 5, image: "/construction-5.jpg", title: "Historic Millwork", category: "Restoration", location: "New Paltz" },
-    { id: 6, image: "/construction-6.jpg", title: "High-Rise Renovation", category: "Commercial", location: "Denver, CO" },
+    {
+      id: 1,
+      image: "/construction-1.jpg",
+      title: "Custom Kitchen",
+      category: "Residential",
+      location: "Upstate NY",
+    },
+    {
+      id: 2,
+      image: "/construction-2.jpg",
+      title: "Brownstone Restoration",
+      category: "Historical",
+      location: "SoHo, NYC",
+    },
+    {
+      id: 3,
+      image: "/construction-3.jpg",
+      title: "Luxury Bathroom",
+      category: "Residential",
+      location: "Westchester",
+    },
+    {
+      id: 4,
+      image: "/construction-4.jpg",
+      title: "Custom Deck",
+      category: "Outdoor",
+      location: "Putnam County",
+    },
+    {
+      id: 5,
+      image: "/construction-5.jpg",
+      title: "Historic Millwork",
+      category: "Restoration",
+      location: "New Paltz",
+    },
+    {
+      id: 6,
+      image: "/construction-6.jpg",
+      title: "High-Rise Renovation",
+      category: "Commercial",
+      location: "Denver, CO",
+    },
   ],
   stats: {
     yearsExperience: "26+",
@@ -130,7 +169,8 @@ export const artfulInquiryConfig: ArtfulInquiryConfig = {
   sectionLabel: "DARK ART",
   sectionTitle: "ARTFUL INQUIRY",
   artistName: "Artful Inquiry",
-  description: "All original ink-on-paper masterpieces. Dark, twisted, dripping expressions of the human condition. Each piece tells a story of mortality, myth, and the beauty found in darkness.",
+  description:
+    "All original ink-on-paper masterpieces. Dark, twisted, dripping expressions of the human condition. Each piece tells a story of mortality, myth, and the beauty found in darkness.",
   videoThumbnail: "/artwork-video-thumbnail.jpg",
   videoSrc: "/grok-video-0a64f1e0-fcff-49fc-9abc-4b770c2f8b97(2).mp4",
   cubeTextures: [
@@ -180,7 +220,8 @@ export const novasignalConfig: NovaSignalConfig = {
   sectionLabel: "BUSINESS DEVELOPMENT",
   sectionTitle: "NOVASIGNAL",
   businessName: "NovaSignal",
-  description: "Transforming rough ideas into thriving brands. From crayon sketches to complete apparel lines, I take businesses from concept to reality with logo design, website development, marketing plans, and strategic consulting.",
+  description:
+    "Transforming rough ideas into thriving brands. From crayon sketches to complete apparel lines, I take businesses from concept to reality with logo design, website development, marketing plans, and strategic consulting.",
   services: [
     "Brand Identity & Logo Design",
     "Website Development",
@@ -192,7 +233,8 @@ export const novasignalConfig: NovaSignalConfig = {
   logoImage: "/novasignal-logo.jpg",
   featuredProject: {
     name: "Glover Legacy",
-    description: "Transformed rough crayon sketches into a full apparel company practically overnight. Complete outfit lineup for all sexes and ages, celebrity seeding, manufacturer introductions, and structured business plan.",
+    description:
+      "Transformed rough crayon sketches into a full apparel company practically overnight. Complete outfit lineup for all sexes and ages, celebrity seeding, manufacturer introductions, and structured business plan.",
     image: "/glover-legacy.png",
   },
   videos: [
@@ -234,14 +276,16 @@ export const ghostsecConfig: GhostSecConfig = {
   sectionLabel: "SOFTWARE DEVELOPMENT",
   sectionTitle: "GHOSTSEC",
   businessName: "GhostSec",
-  description: "Building secure, powerful software solutions. From iOS forensics platforms to API security vaults, I create tools that protect data and empower users.",
+  description:
+    "Building secure, powerful software solutions. From iOS forensics platforms to API security vaults, I create tools that protect data and empower users.",
   logoImage: "/ghostsec-logo.jpg",
   projects: [
     {
       id: 1,
       name: "STYGiON Data Systems",
       tagline: "Powered by the NEMESIS ENGINE",
-      description: "RUST-powered iOS data collection platform and forensics toolkit. AI-powered core ensures security, reproducibility, and tamper-proof evidence handling.",
+      description:
+        "RUST-powered iOS data collection platform and forensics toolkit. AI-powered core ensures security, reproducibility, and tamper-proof evidence handling.",
       tech: ["RUST", "iOS", "AI Core", "Forensics"],
       features: [
         "Secure Data Collection",
@@ -255,7 +299,8 @@ export const ghostsecConfig: GhostSecConfig = {
       id: 2,
       name: "KeyShield",
       tagline: "API & Secrets Manager",
-      description: "Enterprise-grade API and secrets vault built in GOLANG. Securely manage, rotate, and monitor access to sensitive credentials across your infrastructure.",
+      description:
+        "Enterprise-grade API and secrets vault built in GOLANG. Securely manage, rotate, and monitor access to sensitive credentials across your infrastructure.",
       tech: ["GOLANG", "API Security", "Vault", "Enterprise"],
       features: [
         "Secure Secret Storage",
@@ -306,7 +351,8 @@ export const aboutConfig: AboutConfig = {
   profileImage: "/profile.png",
   logoImage: "/logo.png",
   birthDate: "January 3rd, 1985",
-  bioIntro: "Born January 3rd, 1985, I've been in the construction industry since I was 14 years old. What started as a young apprentice's curiosity evolved into a lifelong mastery of multiple crafts.",
+  bioIntro:
+    "Born January 3rd, 1985, I've been in the construction industry since I was 14 years old. What started as a young apprentice's curiosity evolved into a lifelong mastery of multiple crafts.",
   bioFull: `My career has been defined by excellence across multiple disciplines. I built my reputation in Upstate New York construction, working across Orange, Ulster, Putnam, Rockland, and Westchester counties.
 
 From renovating beautiful Brownstone Homes in SoHo, Manhattan to historically accurate reproduction work in New Paltz, I've left my mark on some of New York's most iconic structures. My expertise has been trusted by museums throughout New York City and Boston, Massachusetts.
@@ -325,7 +371,8 @@ While in Des Moines, I branched out with my creativity and love of technology, t
       date: "1999",
       location: "Upstate New York",
       title: "Started in Construction",
-      description: "Began working at age 14, learning the foundations of the trade",
+      description:
+        "Began working at age 14, learning the foundations of the trade",
       image: "/construction-1.jpg",
     },
     {
@@ -402,7 +449,7 @@ export interface FooterConfig {
     label: string;
     href: string;
   }[];
-  galleryImages: { id: number; src: string; }[];
+  galleryImages: { id: number; src: string }[];
   logoImage: string;
 }
 
@@ -415,7 +462,8 @@ export const footerConfig: FooterConfig = {
   artistName: "MULTI-DISCIPLINARY",
   artistSubtitle: "Old Standard · Artful Inquiry · NovaSignal · GhostSec",
   brandName: "PORTFOLIO",
-  brandDescription: "26 years of craftsmanship spanning construction, dark art, business development, and software engineering. From Brownstones in SoHo to secure data systems, every project tells a story of dedication and mastery.",
+  brandDescription:
+    "26 years of craftsmanship spanning construction, dark art, business development, and software engineering. From Brownstones in SoHo to secure data systems, every project tells a story of dedication and mastery.",
   quickLinksTitle: "QUICK LINKS",
   quickLinks: ["Construction", "Art", "NovaSignal", "GhostSec", "Contact"],
   contactTitle: "GET IN TOUCH",
@@ -426,7 +474,8 @@ export const footerConfig: FooterConfig = {
   addressLabel: "Location",
   address: "Des Moines, Iowa",
   newsletterTitle: "STAY CONNECTED",
-  newsletterDescription: "Subscribe for project updates, new artwork, and business insights.",
+  newsletterDescription:
+    "Subscribe for project updates, new artwork, and business insights.",
   newsletterButtonText: "SUBSCRIBE",
   subscribeAlertMessage: "Thanks for subscribing! You'll hear from us soon.",
   copyrightText: "© 2025 Portfolio. All rights reserved.",

@@ -11,6 +11,12 @@ import GhostSec from './sections/GhostSec';
 import About from './sections/About';
 import Footer from './sections/Footer';
 import Gallery from './Gallery';
+import NotFound from './components/NotFound';
+import Denied from './components/Denied';
+import Redirect from './components/Redirect';
+import Forbidden from './components/Forbidden';
+import Unauthorized from './components/Unauthorized';
+import ServerError from './components/ServerError';
 
 function HomePage() {
   // Initialize Lenis smooth scrolling
@@ -58,6 +64,12 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/gallery" element={<Gallery />} />
+        <Route path="/denied" element={<Denied />} />
+        <Route path="/redirect" element={<Redirect />} />
+        <Route path="/forbidden" element={<Forbidden />} />
+        <Route path="/unauthorized" element={<Unauthorized />} />
+        <Route path="/meltdown" element={<ServerError />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
