@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Briefcase, TrendingUp, Users, ArrowRight, Check } from 'lucide-react';
@@ -14,6 +15,7 @@ const NovaSignal = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -193,7 +195,7 @@ const NovaSignal = () => {
           <p className="font-mono-custom text-sm text-white/60 mb-4">
             {novasignalConfig.ctaText}
           </p>
-          <button className="inline-flex items-center gap-2 px-8 py-4 bg-[#a855f7] text-white font-display text-sm uppercase tracking-wider rounded-full hover:bg-[#a855f7]/80 transition-colors">
+          <button onClick={() => navigate('/novasignal')} className="inline-flex items-center gap-2 px-8 py-4 bg-[#a855f7] text-white font-display text-sm uppercase tracking-wider rounded-full hover:bg-[#a855f7]/80 transition-colors">
             <Briefcase className="w-4 h-4" />
             <span>{novasignalConfig.ctaButtonText}</span>
             <ArrowRight className="w-4 h-4" />

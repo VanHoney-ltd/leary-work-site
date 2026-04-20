@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { Play, Music, Disc, Calendar, Briefcase, Code, Menu, X } from 'lucide-react';
 import { heroConfig } from '../config';
@@ -27,6 +28,7 @@ const Hero = () => {
   const [displayText, setDisplayText] = useState(' '.repeat(TARGET_TEXT.length));
   const [isDecoding, setIsDecoding] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   // Decode text effect
   useEffect(() => {
@@ -85,6 +87,14 @@ const Hero = () => {
     }
   };
 
+  const handleNavClick = (item: { sectionId: string; label: string }) => {
+    if (item.sectionId === 'novasignal') {
+      navigate('/novasignal');
+    } else {
+      scrollToSection(item.sectionId);
+    }
+  };
+
   return (
     <section
       ref={heroRef}
@@ -113,7 +123,7 @@ const Hero = () => {
             return (
               <button
                 key={item.sectionId}
-                onClick={() => scrollToSection(item.sectionId)}
+                onClick={() => handleNavClick(item)}
                 className="flex items-center gap-2 px-4 py-2 text-xs md:text-sm lg:text-base font-mono-custom uppercase tracking-wider text-white/80 hover:text-white transition-colors rounded-full hover:bg-white/5"
               >
                 <IconComponent className="w-3.5 h-3.5 md:w-4 md:h-4 lg:w-6 lg:h-6" />
@@ -150,7 +160,7 @@ const Hero = () => {
                 key={item.sectionId}
                 onClick={() => {
                   setIsMenuOpen(false);
-                  scrollToSection(item.sectionId);
+                  handleNavClick(item);
                 }}
                 className="flex items-center gap-4 text-2xl font-mono-custom uppercase tracking-wider text-white/80 hover:text-white transition-colors py-3"
               >
@@ -203,13 +213,25 @@ const Hero = () => {
         {/* CTA Buttons */}
         <div className="flex gap-4">
           <button
-            onClick={() => scrollToSection(heroConfig.ctaPrimaryTarget)}
+            onClick={() => {
+              if (heroConfig.ctaPrimaryTarget === 'novasignal') {
+                navigate('/novasignal');
+              } else {
+                scrollToSection(heroConfig.ctaPrimaryTarget);
+              }
+            }}
             className="px-8 py-3 bg-white text-void-black font-display text-sm uppercase tracking-wider rounded-full hover:bg-neon-soft transition-colors duration-300"
           >
             {heroConfig.ctaPrimary}
           </button>
           <button
-            onClick={() => scrollToSection(heroConfig.ctaSecondaryTarget)}
+            onClick={() => {
+              if (heroConfig.ctaSecondaryTarget === 'novasignal') {
+                navigate('/novasignal');
+              } else {
+                scrollToSection(heroConfig.ctaSecondaryTarget);
+              }
+            }}
             className="px-8 py-3 border border-white/30 text-white font-display text-sm uppercase tracking-wider rounded-full hover:border-neon-cyan hover:text-neon-cyan transition-colors duration-300"
           >
             {heroConfig.ctaSecondary}

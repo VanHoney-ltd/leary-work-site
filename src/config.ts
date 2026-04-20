@@ -47,7 +47,7 @@ export const heroConfig: HeroConfig = {
   subtitle:
     "Carpenter. Artist. Business Developer. Software Enthusiast. Building brands, crafting art, and designing the future.",
   ctaPrimary: "EXPLORE WORK",
-  ctaPrimaryTarget: "oldstandard",
+  ctaPrimaryTarget: "novasignal",
   ctaSecondary: "VIEW ART",
   ctaSecondaryTarget: "artful-inquiry",
   cornerLabel: "ESTABLISHED",
