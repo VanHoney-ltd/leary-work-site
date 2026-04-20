@@ -1,0 +1,66 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="140" y1="60" x2="1020" y2="570" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0A0A1F" />
+      <stop offset="1" stop-color="#070716" />
+    </linearGradient>
+    <linearGradient id="signal" x1="258" y1="182" x2="867" y2="535" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#00F0FF" />
+      <stop offset="0.56" stop-color="#FF00AA" />
+      <stop offset="1" stop-color="#FFD700" />
+    </linearGradient>
+    <radialGradient id="cyanGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(262 160) rotate(29.4) scale(278 225)">
+      <stop stop-color="#00F0FF" stop-opacity="0.32" />
+      <stop offset="1" stop-color="#00F0FF" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="magentaGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(960 136) rotate(153.9) scale(228 194)">
+      <stop stop-color="#FF00AA" stop-opacity="0.3" />
+      <stop offset="1" stop-color="#FF00AA" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="goldGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(834 494) rotate(-165.4) scale(285 210)">
+      <stop stop-color="#FFD700" stop-opacity="0.18" />
+      <stop offset="1" stop-color="#FFD700" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <rect x="42" y="42" width="1116" height="546" rx="28" fill="none" stroke="#FFFFFF" stroke-opacity="0.08" />
+  <rect x="42" y="42" width="1116" height="546" rx="28" fill="none" stroke="#00F0FF" stroke-opacity="0.08" />
+
+  <rect width="1200" height="630" fill="url(#cyanGlow)" />
+  <rect width="1200" height="630" fill="url(#magentaGlow)" />
+  <rect width="1200" height="630" fill="url(#goldGlow)" />
+
+  <g opacity="0.16">
+    <path d="M0 102H1200" stroke="#FFFFFF" />
+    <path d="M0 186H1200" stroke="#FFFFFF" />
+    <path d="M0 270H1200" stroke="#FFFFFF" />
+    <path d="M0 354H1200" stroke="#FFFFFF" />
+    <path d="M0 438H1200" stroke="#FFFFFF" />
+    <path d="M0 522H1200" stroke="#FFFFFF" />
+    <path d="M114 0V630" stroke="#FFFFFF" />
+    <path d="M282 0V630" stroke="#FFFFFF" />
+    <path d="M450 0V630" stroke="#FFFFFF" />
+    <path d="M618 0V630" stroke="#FFFFFF" />
+    <path d="M786 0V630" stroke="#FFFFFF" />
+    <path d="M954 0V630" stroke="#FFFFFF" />
+    <path d="M1122 0V630" stroke="#FFFFFF" />
+  </g>
+
+  <circle cx="927" cy="222" r="112" stroke="url(#signal)" stroke-width="2" opacity="0.34" />
+  <circle cx="927" cy="222" r="72" stroke="url(#signal)" stroke-width="2" opacity="0.44" />
+  <circle cx="927" cy="222" r="28" fill="url(#signal)" />
+  <path d="M758 222H1042" stroke="url(#signal)" stroke-width="2" opacity="0.44" />
+  <path d="M927 53V391" stroke="url(#signal)" stroke-width="2" opacity="0.36" />
+
+  <g fill="#B8B8D9" font-family="Inter, Arial, sans-serif">
+    <text x="104" y="142" font-size="22" letter-spacing="10">INDEPENDENT BRAND AND WEB STUDIO</text>
+    <text x="104" y="258" font-size="88" font-weight="700" fill="#FFFFFF">NovaSignal</text>
+    <text x="104" y="328" font-size="38" fill="#D5D5EA">Clear positioning, distinctive visuals,</text>
+    <text x="104" y="376" font-size="38" fill="#D5D5EA">and launch-ready websites.</text>
+    <text x="104" y="474" font-size="22" letter-spacing="6">DES MOINES, IOWA</text>
+  </g>
+
+  <rect x="104" y="505" width="336" height="46" rx="23" fill="#FFFFFF" fill-opacity="0.04" stroke="#00F0FF" stroke-opacity="0.18" />
+  <text x="132" y="535" fill="#00F0FF" font-family="JetBrains Mono, monospace" font-size="20" letter-spacing="3">STRATEGY • DESIGN • BUILD</text>
+</svg>
