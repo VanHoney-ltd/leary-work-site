@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Iowa Remote LLC Formation Dashboard</title>
+  <style>
+    :root {
+      --bg: #f6f7f9;
+      --panel: #ffffff;
+      --ink: #18202a;
+      --muted: #5d6876;
+      --line: #d8dee7;
+      --soft: #eef2f6;
+      --navy: #17324d;
+      --green: #1d6b52;
+      --gold: #a86812;
+      --red: #a13f3a;
+      --blue: #2867a8;
+      --shadow: 0 12px 30px rgba(24, 32, 42, .08);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.45;
+    }
+    a { color: var(--blue); }
+    header {
+      background: var(--navy);
+      color: #fff;
+      padding: 24px 16px 18px;
+    }
+    .wrap { max-width: 1180px; margin: 0 auto; }
+    .topbar {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    h1 { margin: 0; font-size: clamp(1.7rem, 6vw, 3.6rem); line-height: 1.02; letter-spacing: 0; max-width: 940px; }
+    .subtitle { max-width: 880px; margin: 12px 0 0; color: #d7e3ef; font-size: 1rem; }
+    .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    button, .button {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      border-radius: 6px;
+      min-height: 38px;
+      padding: 9px 12px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    header button { border-color: rgba(255,255,255,.28); background: rgba(255,255,255,.11); color: #fff; }
+    button.primary { background: var(--green); border-color: var(--green); color: #fff; }
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: rgba(255,255,255,.96);
+      border-bottom: 1px solid var(--line);
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    nav .wrap { display: flex; gap: 8px; padding: 9px 16px; }
+    nav a { color: var(--ink); text-decoration: none; font-size: .88rem; padding: 7px 9px; border-radius: 5px; background: var(--soft); }
+    main { padding: 18px 16px 48px; }
+    section { margin: 20px auto; }
+    h2 { margin: 0 0 12px; font-size: clamp(1.35rem, 4vw, 2rem); }
+    h3 { margin: 0 0 8px; font-size: 1.1rem; }
+    p { margin: 0 0 10px; }
+    .grid { display: grid; gap: 12px; }
+    .grid.two, .grid.three, .grid.four { grid-template-columns: 1fr; }
+    .card, details {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+    .card { padding: 14px; }
+    details { overflow: hidden; }
+    summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-weight: 800;
+    }
+    summary::-webkit-details-marker { display: none; }
+    details .inside { padding: 0 14px 14px; }
+    .badge { display: inline-flex; align-items: center; border-radius: 999px; padding: 3px 8px; font-size: .78rem; font-weight: 800; background: var(--soft); color: var(--navy); }
+    .warn { border-left: 4px solid var(--gold); background: #fff8ec; }
+    .danger { border-left: 4px solid var(--red); background: #fff1f0; }
+    .good { border-left: 4px solid var(--green); background: #eef8f4; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+    th, td { padding: 10px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; font-size: .92rem; }
+    th { background: var(--soft); font-size: .82rem; text-transform: uppercase; letter-spacing: .04em; }
+    label { display: block; font-size: .82rem; font-weight: 800; color: var(--muted); margin-bottom: 4px; }
+    input, textarea, select {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 9px;
+      font: inherit;
+      background: #fff;
+      color: var(--ink);
+    }
+    textarea { min-height: 82px; resize: vertical; }
+    .fieldgrid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 10px; }
+    .record {
+      border: 1px solid var(--line);
+      background: #fbfcfd;
+      border-radius: 8px;
+      padding: 12px;
+      margin: 10px 0;
+    }
+    .checkitem {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 9px;
+      align-items: start;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .checkitem:last-child { border-bottom: 0; }
+    .checkitem input[type="checkbox"] { width: 18px; height: 18px; margin-top: 2px; }
+    .timeline { display: grid; gap: 10px; }
+    .step { border-left: 4px solid var(--blue); padding: 10px 12px; background: #fff; border-radius: 0 8px 8px 0; box-shadow: var(--shadow); }
+    .mathout { font-size: 1.4rem; font-weight: 900; }
+    .small { font-size: .86rem; color: var(--muted); }
+    .split-title { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+    .source-list li { margin: 7px 0; }
+    footer { padding: 20px 16px 32px; color: var(--muted); }
+    @media (min-width: 760px) {
+      header { padding: 34px 24px 26px; }
+      main { padding: 24px; }
+      .grid.two { grid-template-columns: repeat(2, 1fr); }
+      .grid.three { grid-template-columns: repeat(3, 1fr); }
+      .grid.four { grid-template-columns: repeat(4, 1fr); }
+      .fieldgrid { grid-template-columns: repeat(2, 1fr); }
+      .fieldgrid.three { grid-template-columns: repeat(3, 1fr); }
+      .fieldgrid.four { grid-template-columns: repeat(4, 1fr); }
+    }
+    @media print {
+      body { background: #fff; color: #000; font-size: 11pt; }
+      header, nav, .actions, button { display: none !important; }
+      main { padding: 0; }
+      section, .card, details { box-shadow: none; break-inside: avoid; }
+      details:not([open]) .inside { display: block; }
+      summary { border-bottom: 1px solid #aaa; }
+      input, textarea, select { border: 1px solid #999; min-height: 28px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap topbar">
+      <div>
+        <h1>Iowa Remote LLC Formation Dashboard</h1>
+        <p class="subtitle">Comparison paths for Delaware, Wyoming, and New Mexico LLCs operated remotely from Iowa, with Iowa foreign registration, privacy tradeoffs, funding reality, ROI planning, and document tracking.</p>
+      </div>
+      <div class="actions">
+        <button type="button" id="exportBtn">Export JSON</button>
+        <button type="button" onclick="window.print()">Print packet</button>
+        <button type="button" id="resetBtn">Clear saved fields</button>
+      </div>
+    </div>
+  </header>
+  <nav>
+    <div class="wrap">
+      <a href="#paths">State Paths</a><a href="#iowa">Iowa</a><a href="#checklists">Checklists</a><a href="#credit">Credit</a><a href="#funding">SBA</a><a href="#plan">Business Plan</a><a href="#roi">ROI</a><a href="#structure">Structure</a><a href="#tracking">Tracking</a>
+    </div>
+  </nav>
+  <main class="wrap">
+    <section id="overview" class="grid three">
+      <div class="card good"><h3>iON Data Management Systems</h3><p>Software development, data systems, automation, technical workflow tools. Start with productized services, setup work, documentation, dashboards, and support retainers before relying on licensing.</p></div>
+      <div class="card good"><h3>NovaSignal</h3><p>Small business marketing, web development, branding, campaign systems. Start with fixed-price packages and recurring monthly retainers.</p></div>
+      <div class="card warn"><h3>Van Honey Ltd</h3><p>Existing Colorado Ltd formed in May 2021 in Broomfield, Colorado. Treat as possible parent or holding company only after verifying status, tax history, banking history, D-U-N-S profile, and exact legal form.</p></div>
+    </section>
+
+    <section id="paths">
+      <div class="split-title"><h2>Three Formation Paths</h2><span class="badge">Operating remotely from Iowa</span></div>
+      <div class="grid three">
+        <details open>
+          <summary>Delaware LLC + Iowa foreign registration <span>+</span></summary>
+          <div class="inside">
+            <p><strong>Best fit:</strong> investor familiarity, mature business-law reputation, and holding-company credibility. Less private than New Mexico, more annual cost than Wyoming/New Mexico.</p>
+            <div class="record"><h3>Checklist</h3><div data-checklist="de-check"></div></div>
+            <div class="record"><h3>Document tracker</h3><div data-record="delaware"></div></div>
+          </div>
+        </details>
+        <details open>
+          <summary>Wyoming LLC + Iowa foreign registration <span>+</span></summary>
+          <div class="inside">
+            <p><strong>Best fit:</strong> privacy-minded ownership, low annual state burden, and simple maintenance. Common online-business choice, but Iowa registration still exposes Iowa operating presence.</p>
+            <div class="record"><h3>Checklist</h3><div data-checklist="wy-check"></div></div>
+            <div class="record"><h3>Document tracker</h3><div data-record="wyoming"></div></div>
+          </div>
+        </details>
+        <details open>
+          <summary>New Mexico LLC + Iowa foreign registration <span>+</span></summary>
+          <div class="inside">
+            <p><strong>Best fit:</strong> privacy and low state maintenance. New Mexico is often attractive because it does not require a routine annual report for LLCs, but Iowa foreign registration is still needed when operating from Iowa.</p>
+            <div class="record"><h3>Checklist</h3><div data-checklist="nm-check"></div></div>
+            <div class="record"><h3>Document tracker</h3><div data-record="newmexico"></div></div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section id="costs" class="grid two">
+      <div class="card">
+        <h2>Startup Cost Comparison</h2>
+        <table>
+          <thead><tr><th>Path</th><th>State filing</th><th>Iowa foreign registration</th><th>Registered agent</th><th>Plain-English note</th></tr></thead>
+          <tbody>
+            <tr><td>Delaware</td><td><input data-save="cost_de_state" value="Enter current Delaware certificate cost"></td><td><input data-save="cost_de_ia" value="Enter Iowa filing cost"></td><td><input data-save="cost_de_ra" value="Annual agent quote"></td><td>Usually higher maintenance, strong legal reputation.</td></tr>
+            <tr><td>Wyoming</td><td><input data-save="cost_wy_state" value="Enter current Wyoming filing cost"></td><td><input data-save="cost_wy_ia" value="Enter Iowa filing cost"></td><td><input data-save="cost_wy_ra" value="Annual agent quote"></td><td>Often low-cost and privacy-friendly.</td></tr>
+            <tr><td>New Mexico</td><td><input data-save="cost_nm_state" value="Enter current New Mexico filing cost"></td><td><input data-save="cost_nm_ia" value="Enter Iowa filing cost"></td><td><input data-save="cost_nm_ra" value="Annual agent quote"></td><td>Often lowest state maintenance burden.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <h2>Annual Maintenance Comparison</h2>
+        <table>
+          <thead><tr><th>Path</th><th>Home-state annual</th><th>Iowa recurring</th><th>Privacy maintenance</th></tr></thead>
+          <tbody>
+            <tr><td>Delaware</td><td>Franchise tax / report obligations may apply.</td><td>Iowa filings, taxes, registered agent or office requirements as applicable.</td><td>Use registered agent and clean business address; bank still verifies beneficial owners.</td></tr>
+            <tr><td>Wyoming</td><td>Annual report/license tax generally expected.</td><td>Iowa filings and Iowa tax compliance remain required.</td><td>Strong privacy posture, but not anonymity from banks, IRS, or law enforcement.</td></tr>
+            <tr><td>New Mexico</td><td>No routine LLC annual report is commonly cited; verify current rule before filing.</td><td>Iowa foreign registration and taxes still matter.</td><td>Good public-record privacy, but registered agent and FinCEN/IRS/bank records still exist.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="privacy" class="card">
+      <h2>Privacy Comparison</h2>
+      <div class="grid three">
+        <div><h3>Delaware</h3><p>Good for business-law reputation, moderate privacy. Public-facing filings may be less owner-revealing than some states, but registered agent records, bank KYC, tax filings, contracts, and beneficial ownership rules can still identify control persons.</p></div>
+        <div><h3>Wyoming</h3><p>Strong privacy reputation and low owner-disclosure footprint. It is not magic anonymity; lenders, banks, IRS, payment processors, and registered agents can require real identity information.</p></div>
+        <div><h3>New Mexico</h3><p>Strong privacy and low annual filing friction. It is often the simplest privacy-friendly state for small remote companies, but Iowa registration reduces practical privacy if the business is visibly operated in Iowa.</p></div>
+      </div>
+    </section>
+
+    <section id="iowa" class="card">
+      <h2>Iowa Foreign-Registration Checklist</h2>
+      <p>Use this when the LLC is formed in Delaware, Wyoming, or New Mexico but managed from Iowa, serving Iowa clients, holding Iowa office presence, or otherwise transacting business in Iowa.</p>
+      <div data-checklist="iowa-check"></div>
+      <div class="record"><h3>Iowa filing tracker</h3><div data-record="iowa"></div></div>
+    </section>
+
+    <section id="checklists" class="grid two">
+      <div class="card"><h2>EIN Checklist</h2><div data-checklist="ein-check"></div><div data-record="ein"></div></div>
+      <div class="card"><h2>D-U-N-S Checklist</h2><div data-checklist="duns-check"></div><div data-record="duns"></div></div>
+      <div class="card"><h2>Business Banking Checklist</h2><div data-checklist="bank-check"></div><div data-record="bank"></div></div>
+      <div class="card"><h2>Credit-Readiness Checklist</h2><div data-checklist="credit-check"></div><div data-record="credit"></div></div>
+      <div class="card"><h2>Trust Ownership Checklist</h2><div data-checklist="trust-check"></div><div data-record="trust"></div></div>
+      <div class="card"><h2>General Document Checklist</h2><div data-checklist="docs-check"></div><div data-record="documents"></div></div>
+    </section>
+
+    <section id="credit" class="card danger">
+      <h2>Personal Credit Scenario: 550 Score</h2>
+      <p>A 550 personal credit score affects bank approvals, business credit cards, SBA lending, personal guarantees, interest rates, vendor terms, and equipment/software financing. A new EIN does not erase personal underwriting, and EIN-only funding should not be treated as realistic startup capital.</p>
+      <div class="timeline">
+        <div class="step"><strong>Month 0-3:</strong> mostly self-funded, prepaid tools, secured card, business checking, basic vendor accounts, clean bookkeeping.</div>
+        <div class="step"><strong>Month 3-6:</strong> small vendor terms may become possible if early payments are clean and records are organized.</div>
+        <div class="step"><strong>Month 6-12:</strong> possible low-limit business credit, still likely with a personal guarantee.</div>
+        <div class="step"><strong>Year 1-2:</strong> better odds if revenue, tax filings, bookkeeping, bank balances, and payment history are clean.</div>
+      </div>
+    </section>
+
+    <section id="funding" class="card">
+      <h2>Trump / SBA Funding and Policy Context</h2>
+      <p>These are official programs and policy references. They are not guaranteed grants, and most loans require underwriting, repayment ability, documentation, and often a personal guarantee.</p>
+      <ul class="source-list">
+        <li><strong>SBA 7(a) Loan Program:</strong> primary SBA business loan program. <a href="https://www.sba.gov/funding-programs/loans/7a-loans">Official source</a>.</li>
+        <li><strong>SBA 504 Loan Program:</strong> long-term fixed-asset financing, usually real estate/equipment. <a href="https://www.sba.gov/funding-programs/loans/504-loans">Official source</a>.</li>
+        <li><strong>SBA Microloans:</strong> smaller loans through intermediary lenders. <a href="https://www.sba.gov/funding-programs/loans/microloans">Official source</a>.</li>
+        <li><strong>SBA Lender Match:</strong> tool to connect with SBA-approved lenders. <a href="https://www.sba.gov/funding-programs/loans/lender-match">Official source</a>.</li>
+        <li><strong>Guaranteeing Fair Banking for All Americans:</strong> executive order focused on fair banking access; use as banking-access policy context, not a grant. <a href="https://www.whitehouse.gov/presidential-actions/2025/08/guaranteeing-fair-banking-for-all-americans/">Official source</a>.</li>
+        <li><strong>One Big Beautiful Bill Act / small business tax deduction:</strong> tax-policy context, not direct startup funding. <a href="https://www.whitehouse.gov/releases/2025/07/president-trumps-one-big-beautiful-bill-a-win-for-workers-farmers-and-americas-future/">Official source</a>.</li>
+        <li><strong>SBA FY2025 capital access report:</strong> SBA reported major 7(a), 504, and SBIC capital access activity. <a href="https://www.sba.gov/annual-report/">Official source</a>.</li>
+      </ul>
+      <div class="record"><h3>Funding contact tracker</h3><div data-record="funding"></div></div>
+    </section>
+
+    <section id="plan" class="card">
+      <h2>Business Plan Builder</h2>
+      <div class="fieldgrid three" id="businessPlanFields"></div>
+      <div class="grid two" style="margin-top:14px">
+        <div class="card good">
+          <h3>iON profit methodology</h3>
+          <p>Start with productized services, not only software licensing. Offer paid setup, workflow automation, data cleanup, internal dashboard builds, and technical documentation. Build recurring revenue through monthly support retainers. Later convert repeated service workflows into software modules.</p>
+        </div>
+        <div class="card good">
+          <h3>NovaSignal profit methodology</h3>
+          <p>Sell simple fixed-price packages first: Starter Website, Brand Identity Kit, Local Campaign Setup, Monthly Maintenance, and SEO/Google Business Profile Cleanup. Add recurring monthly retainers after the first project.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="roi" class="card">
+      <h2>Smallest Investment Into Myself Calculator</h2>
+      <div class="fieldgrid four" id="roiInputs"></div>
+      <div class="grid four" style="margin-top:14px">
+        <div class="card"><div class="small">Break-even month</div><div class="mathout" id="breakeven">-</div></div>
+        <div class="card"><div class="small">Total first-year cost</div><div class="mathout" id="firstYearCost">-</div></div>
+        <div class="card"><div class="small">Projected monthly revenue</div><div class="mathout" id="monthlyRevenue">-</div></div>
+        <div class="card"><div class="small">Projected annual revenue</div><div class="mathout" id="annualRevenue">-</div></div>
+      </div>
+      <table style="margin-top:14px">
+        <thead><tr><th>Scenario</th><th>Assumption</th><th>Monthly revenue</th><th>Annual revenue</th></tr></thead>
+        <tbody id="scenarioRows"></tbody>
+      </table>
+    </section>
+
+    <section id="structure">
+      <h2>Entity Structure Options</h2>
+      <div class="grid three">
+        <div class="card">
+          <h3>Option A: Van Honey Ltd as parent</h3>
+          <p>Van Honey Ltd as parent/holding company owns iON Data Management Systems and NovaSignal. iON operates software activity. NovaSignal operates marketing activity.</p>
+          <p class="small">Use only after status verification. Old liabilities, delinquent reports, tax issues, or bank history can contaminate a clean launch.</p>
+        </div>
+        <div class="card">
+          <h3>Option B: New privacy LLC as parent</h3>
+          <p>New Delaware, Wyoming, or New Mexico privacy LLC owns iON and NovaSignal. This can create a cleaner parent layer, but requires disciplined banking, contracts, bookkeeping, and intercompany records.</p>
+        </div>
+        <div class="card">
+          <h3>Option C: Clean new operating LLC</h3>
+          <p>Keep Van Honey Ltd inactive until status is verified, then form one clean new operating LLC for initial revenue. Add separate DBAs, brands, or subsidiaries later when revenue justifies complexity.</p>
+        </div>
+      </div>
+      <div class="card warn" style="margin-top:12px">
+        <h3>Before using Van Honey Ltd, verify first</h3>
+        <div data-checklist="vanhoney-check"></div>
+        <div data-record="vanhoney"></div>
+      </div>
+    </section>
+
+    <section id="tracking" class="card">
+      <h2>Universal Filing, Account, Cost, Due-Date, and Notes Tracker</h2>
+      <p>Use these rows for every document, filing number, account number, contact, cost, due date, and notes item that does not fit elsewhere.</p>
+      <div class="grid two">
+        <div class="record"><h3>Formation records</h3><div data-record="formation-extra"></div></div>
+        <div class="record"><h3>Banking and credit records</h3><div data-record="banking-extra"></div></div>
+        <div class="record"><h3>Tax and compliance records</h3><div data-record="tax-extra"></div></div>
+        <div class="record"><h3>Vendor and tool records</h3><div data-record="vendor-extra"></div></div>
+      </div>
+    </section>
+  </main>
+  <footer class="wrap">
+    <p>This dashboard is practical planning support, not legal, tax, lending, or investment advice. Confirm current fees, legal duties, tax status, and filing rules with official state offices, the IRS, SBA-approved lenders, and qualified professionals before filing.</p>
+  </footer>
+
+  <script>
+    const storeKey = "iowaPrivacyLlcDashboard.v1";
+    const state = JSON.parse(localStorage.getItem(storeKey) || "{}");
+
+    const checklists = {
+      "de-check": ["Choose Delaware LLC name", "Hire Delaware registered agent", "File Certificate of Formation", "Create operating agreement", "Track Delaware file number", "Prepare Iowa foreign registration", "Open banking only after EIN and records are consistent"],
+      "wy-check": ["Choose Wyoming LLC name", "Hire Wyoming registered agent", "File Articles of Organization", "Create operating agreement", "Track Wyoming filing ID", "Prepare Iowa foreign registration", "Calendar Wyoming annual report"],
+      "nm-check": ["Choose New Mexico LLC name", "Hire New Mexico registered agent", "File Articles of Organization", "Create operating agreement", "Track New Mexico filing ID", "Prepare Iowa foreign registration", "Confirm current annual-report rule before relying on low maintenance"],
+      "iowa-check": ["Confirm the company is transacting business from Iowa", "Check Iowa name availability or foreign name requirements", "Get certificate of good standing/existence from home state", "File Iowa foreign registration", "List Iowa registered agent or required contact", "Calendar Iowa reports and tax obligations", "Register for Iowa taxes if required"],
+      "ein-check": ["Decide responsible party", "Apply at IRS EIN Assistant", "Save EIN confirmation letter", "Match EIN name to formation records", "Use EIN for bank account", "Update accounting file and W-9"],
+      "duns-check": ["Search existing D-U-N-S profile first", "Create or update business identity", "Match legal name and address", "Add website and phone", "Save D-U-N-S number", "Review before applying for vendor credit"],
+      "bank-check": ["Prepare articles/certificate", "Prepare operating agreement", "Bring EIN letter", "Bring personal ID", "Bring proof of address", "Explain business activity plainly", "Ask about monthly fees and minimum balance"],
+      "credit-check": ["Separate business phone/email/domain", "Open business checking", "Keep clean deposits and records", "Use bookkeeping from day one", "Pay vendors early", "Avoid EIN-only funding claims", "Track all personal guarantees"],
+      "trust-check": ["Decide if trust ownership is actually needed", "Have trust reviewed before naming it as member", "Confirm bank will accept trust-owned LLC", "Document trustee authority", "Keep beneficial ownership records consistent", "Avoid structure complexity before revenue supports it"],
+      "docs-check": ["Articles/certificate", "Operating agreement", "EIN letter", "Iowa foreign registration", "Registered agent agreement", "Bank signature card", "Insurance quotes", "Vendor agreements"],
+      "vanhoney-check": ["Colorado good standing", "Delinquent reports/fees", "Tax status", "D-U-N-S profile", "Bank account history", "Whether it is actually 'Ltd' and what legal form it is", "Whether reinstatement is cheaper than forming new"]
+    };
+
+    const recordFields = ["Document", "Filing number", "Account number", "Contact", "Cost", "Due date", "Notes"];
+    const planFields = ["Company name", "Business purpose", "Target customer", "Offer/package", "Pricing", "Startup cost", "Monthly overhead", "Revenue goal", "Sales method", "Required tools", "Funding needed", "Use of funds", "30-day plan", "90-day plan", "6-month plan", "12-month plan"];
+    const roiFields = [
+      ["startupBudget", "Startup budget", 500],
+      ["monthlySoftwareCost", "Monthly software cost", 75],
+      ["registeredAgentCost", "Registered agent cost", 125],
+      ["stateFilingCost", "State filing cost", 100],
+      ["iowaForeignRegistrationCost", "Iowa foreign registration cost", 100],
+      ["domainEmailCost", "Domain/email cost", 80],
+      ["websiteCost", "Website cost", 150],
+      ["advertisingBudget", "Advertising budget", 100],
+      ["expectedMonthlyClients", "Expected monthly clients", 2],
+      ["averageProjectPrice", "Average project price", 750],
+      ["monthlyRetainerCount", "Monthly retainer count", 1],
+      ["averageRetainerPrice", "Average retainer price", 250]
+    ];
+
+    function save() { localStorage.setItem(storeKey, JSON.stringify(state)); }
+    function keySafe(s) { return s.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, ""); }
+    function bind(el, key, fallback) {
+      el.dataset.save = key;
+      if (state[key] !== undefined) {
+        if (el.type === "checkbox") el.checked = !!state[key];
+        else el.value = state[key];
+      } else if (fallback !== undefined && el.value === "") {
+        el.value = fallback;
+      }
+      el.addEventListener("input", () => {
+        state[key] = el.type === "checkbox" ? el.checked : el.value;
+        save();
+        calcRoi();
+      });
+    }
+    function makeChecklist(target, items) {
+      items.forEach((text, i) => {
+        const row = document.createElement("label");
+        row.className = "checkitem";
+        const cb = document.createElement("input");
+        cb.type = "checkbox";
+        bind(cb, `${target}_${i}`, false);
+        const span = document.createElement("span");
+        span.textContent = text;
+        row.append(cb, span);
+        document.querySelector(`[data-checklist="${target}"]`).append(row);
+      });
+    }
+    function makeRecord(target) {
+      const root = document.querySelector(`[data-record="${target}"]`);
+      const grid = document.createElement("div");
+      grid.className = "fieldgrid";
+      recordFields.forEach(name => {
+        const wrap = document.createElement("div");
+        const label = document.createElement("label");
+        label.textContent = name;
+        const input = name === "Notes" ? document.createElement("textarea") : document.createElement("input");
+        if (name === "Due date") input.type = "date";
+        if (name === "Cost") input.type = "number";
+        bind(input, `record_${target}_${keySafe(name)}`);
+        wrap.append(label, input);
+        grid.append(wrap);
+      });
+      root.append(grid);
+    }
+    Object.entries(checklists).forEach(([key, items]) => makeChecklist(key, items));
+    document.querySelectorAll("[data-record]").forEach(el => makeRecord(el.dataset.record));
+    document.querySelectorAll("[data-save]").forEach(el => bind(el, el.dataset.save, el.getAttribute("value") || ""));
+
+    const planRoot = document.getElementById("businessPlanFields");
+    planFields.forEach(name => {
+      const wrap = document.createElement("div");
+      const label = document.createElement("label");
+      label.textContent = name;
+      const input = name.includes("plan") || name === "Use of funds" ? document.createElement("textarea") : document.createElement("input");
+      bind(input, `plan_${keySafe(name)}`);
+      wrap.append(label, input);
+      planRoot.append(wrap);
+    });
+
+    const roiRoot = document.getElementById("roiInputs");
+    roiFields.forEach(([key, labelText, fallback]) => {
+      const wrap = document.createElement("div");
+      const label = document.createElement("label");
+      label.textContent = labelText;
+      const input = document.createElement("input");
+      input.type = "number";
+      input.min = "0";
+      input.step = "1";
+      bind(input, `roi_${key}`, fallback);
+      wrap.append(label, input);
+      roiRoot.append(wrap);
+    });
+    function money(n) { return n.toLocaleString(undefined, { style: "currency", currency: "USD", maximumFractionDigits: 0 }); }
+    function num(key) { return Number(state[`roi_${key}`] ?? document.querySelector(`[data-save="roi_${key}"]`)?.value ?? 0) || 0; }
+    function calcRoi() {
+      const startup = num("startupBudget");
+      const monthlySoftware = num("monthlySoftwareCost");
+      const agent = num("registeredAgentCost");
+      const stateFiling = num("stateFilingCost");
+      const iowa = num("iowaForeignRegistrationCost");
+      const domain = num("domainEmailCost");
+      const website = num("websiteCost");
+      const ads = num("advertisingBudget");
+      const clients = num("expectedMonthlyClients");
+      const project = num("averageProjectPrice");
+      const retainers = num("monthlyRetainerCount");
+      const retainerPrice = num("averageRetainerPrice");
+      const firstYearCost = startup + agent + stateFiling + iowa + domain + website + (monthlySoftware * 12) + (ads * 12);
+      const monthlyRevenue = (clients * project) + (retainers * retainerPrice);
+      const annualRevenue = monthlyRevenue * 12;
+      const breakeven = monthlyRevenue > 0 ? Math.ceil(firstYearCost / monthlyRevenue) : 0;
+      document.getElementById("breakeven").textContent = breakeven ? `Month ${breakeven}` : "No revenue";
+      document.getElementById("firstYearCost").textContent = money(firstYearCost);
+      document.getElementById("monthlyRevenue").textContent = money(monthlyRevenue);
+      document.getElementById("annualRevenue").textContent = money(annualRevenue);
+      const scenarios = [
+        ["Conservative", "50% of expected client/project/retainer revenue", monthlyRevenue * .5],
+        ["Realistic", "Current inputs", monthlyRevenue],
+        ["Optimistic", "150% of expected client/project/retainer revenue", monthlyRevenue * 1.5]
+      ];
+      document.getElementById("scenarioRows").innerHTML = scenarios.map(([name, desc, monthly]) => `<tr><td>${name}</td><td>${desc}</td><td>${money(monthly)}</td><td>${money(monthly * 12)}</td></tr>`).join("");
+    }
+    calcRoi();
+
+    document.getElementById("exportBtn").addEventListener("click", () => {
+      const blob = new Blob([JSON.stringify({ exportedAt: new Date().toISOString(), data: state }, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "iowa-privacy-llc-dashboard.json";
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+    document.getElementById("resetBtn").addEventListener("click", () => {
+      if (confirm("Clear saved dashboard inputs from this browser?")) {
+        localStorage.removeItem(storeKey);
+        location.reload();
+      }
+    });
+  </script>
+</body>
+</html>
