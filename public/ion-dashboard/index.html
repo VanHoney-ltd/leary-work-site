@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>iON Command Dashboard</title>
+  <style>
+    :root {
+      --bg:#080b10; --panel:#101722; --panel2:#151f2d; --ink:#edf4ff; --muted:#8fa1b6;
+      --line:#243246; --blue:#4aa3ff; --cyan:#39d6d6; --green:#42c27a; --gold:#d6a13b; --red:#ee6352;
+      --shadow:0 20px 55px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.45}
+    body:before{content:"";position:fixed;inset:0;pointer-events:none;background:linear-gradient(135deg,rgba(74,163,255,.14),transparent 32%),radial-gradient(circle at 88% 8%,rgba(57,214,214,.15),transparent 30%);z-index:-1}
+    a{color:var(--cyan)} button,input,textarea,select{font:inherit}
+    header{padding:22px 14px 14px;border-bottom:1px solid var(--line);background:rgba(8,11,16,.88);position:sticky;top:0;z-index:5;backdrop-filter:blur(16px)}
+    .wrap{max-width:1240px;margin:0 auto}.top{display:flex;gap:14px;justify-content:space-between;align-items:flex-start;flex-wrap:wrap}
+    .brand{display:flex;gap:12px;align-items:center}.mark{width:42px;height:42px;border:1px solid var(--blue);border-radius:8px;display:grid;place-items:center;color:var(--cyan);font-weight:900;letter-spacing:.08em;background:#0b1320}
+    h1{font-size:clamp(1.65rem,5vw,3.8rem);line-height:1;margin:0;letter-spacing:0}.sub{color:var(--muted);margin:8px 0 0;max-width:850px}
+    .actions{display:flex;gap:8px;flex-wrap:wrap}button{border:1px solid var(--line);background:var(--panel2);color:var(--ink);border-radius:7px;min-height:38px;padding:9px 12px;font-weight:800;cursor:pointer}button.primary{background:var(--blue);color:#06101d;border-color:var(--blue)}
+    nav{overflow-x:auto;white-space:nowrap;border-bottom:1px solid var(--line);background:#0c1119}nav .wrap{display:flex;gap:8px;padding:9px 14px}nav a{text-decoration:none;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:7px 10px;font-size:.86rem}
+    main{padding:16px 14px 50px}.grid{display:grid;gap:12px}.two,.three,.four{grid-template-columns:1fr}.card{background:linear-gradient(180deg,var(--panel),#0d131d);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);padding:14px}.card.flat{box-shadow:none}
+    h2{margin:0 0 12px;font-size:clamp(1.25rem,4vw,2rem)}h3{margin:0 0 8px;font-size:1.02rem}p{margin:0 0 10px}.muted{color:var(--muted)}.kpi{font-size:1.75rem;font-weight:950;color:var(--cyan)}.label{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-weight:900}
+    .status{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:999px;padding:5px 9px;background:#0c141f;font-size:.82rem}.dot{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 14px var(--green)}.warn .dot{background:var(--gold);box-shadow:0 0 14px var(--gold)}.bad .dot{background:var(--red);box-shadow:0 0 14px var(--red)}
+    label{display:block;font-weight:900;color:var(--muted);font-size:.8rem;margin:0 0 4px}input,textarea,select{width:100%;background:#08101a;color:var(--ink);border:1px solid var(--line);border-radius:7px;padding:9px}textarea{min-height:76px;resize:vertical}.fields{display:grid;grid-template-columns:1fr;gap:10px}
+    table{width:100%;border-collapse:collapse;border:1px solid var(--line);overflow:hidden;border-radius:9px}th,td{border-bottom:1px solid var(--line);padding:9px;text-align:left;vertical-align:top;font-size:.9rem}th{background:#121d2a;color:var(--muted);text-transform:uppercase;font-size:.76rem;letter-spacing:.06em}
+    .row{display:grid;grid-template-columns:1fr;gap:10px;border:1px solid var(--line);border-radius:9px;padding:10px;margin:10px 0;background:#0b121c}.check{display:grid;grid-template-columns:auto 1fr;gap:9px;align-items:start;padding:7px 0;border-bottom:1px solid var(--line)}.check:last-child{border-bottom:0}.check input{width:18px;height:18px}
+    .pipeline{display:grid;gap:10px}.stage{border-left:4px solid var(--blue);padding:10px 12px;background:#0c141f;border-radius:0 9px 9px 0}.money{color:var(--green);font-weight:950}.danger{border-left:4px solid var(--red)}.good{border-left:4px solid var(--green)}
+    @media(min-width:760px){header{padding:26px 22px 18px}main{padding:22px}.two{grid-template-columns:repeat(2,1fr)}.three{grid-template-columns:repeat(3,1fr)}.four{grid-template-columns:repeat(4,1fr)}.fields{grid-template-columns:repeat(2,1fr)}.fields.three{grid-template-columns:repeat(3,1fr)}}
+    @media print{header,nav,.actions,button{display:none!important}body{background:#fff;color:#000}.card{box-shadow:none;background:#fff;color:#000;break-inside:avoid}input,textarea,select{color:#000;background:#fff}}
+  </style>
+</head>
+<body>
+  <header><div class="wrap top"><div class="brand"><div class="mark">iON</div><div><h1>iON Command Dashboard</h1><p class="sub">A working operations board for iON Data Management Systems: services, automations, clients, pipeline, launch tasks, revenue, and delivery control.</p></div></div><div class="actions"><button id="exportBtn">Export JSON</button><button onclick="window.print()">Print</button><button id="resetBtn">Clear saved state</button></div></div></header>
+  <nav><div class="wrap"><a href="#overview">Overview</a><a href="#offers">Offers</a><a href="#pipeline">Pipeline</a><a href="#clients">Clients</a><a href="#automation">Automation</a><a href="#launch">Launch</a><a href="#revenue">Revenue</a><a href="#notes">Notes</a></div></nav>
+  <main class="wrap">
+    <section id="overview" class="grid four">
+      <div class="card"><div class="label">Operating Mode</div><div class="kpi">Services First</div><p class="muted">Paid setup, cleanup, automation, dashboards, documentation, then recurring support.</p></div>
+      <div class="card"><div class="label">Monthly Target</div><div class="kpi" id="targetOut">$0</div><p class="muted">Set target in revenue controls.</p></div>
+      <div class="card"><div class="label">Pipeline Value</div><div class="kpi" id="pipelineOut">$0</div><p class="muted">Live total from project rows.</p></div>
+      <div class="card"><div class="label">Retainer Base</div><div class="kpi" id="retainerOut">$0</div><p class="muted">Monthly recurring support.</p></div>
+    </section>
+
+    <section class="grid three">
+      <div class="card good"><h3>What iON sells now</h3><p>Workflow automation, internal dashboard builds, data cleanup, technical documentation, file processing, reporting systems, and small-business operations tools.</p></div>
+      <div class="card"><h3>What iON becomes</h3><p>Repeated service workflows become software modules: intake, evidence/document review, client portals, automation runners, reporting, and operational intelligence.</p></div>
+      <div class="card danger"><h3>Rule</h3><p>Do not wait for perfect software licensing. Sell useful work packages now, document the repeatable steps, and convert the repeated steps into product.</p></div>
+    </section>
+
+    <section id="offers" class="card">
+      <h2>Productized Service Menu</h2>
+      <div class="grid three">
+        <div class="card flat"><h3>Workflow Setup Sprint</h3><p class="money">$500-$1,500</p><p>Map a messy process, clean inputs, create the working folder/app flow, and leave the client with a usable procedure.</p></div>
+        <div class="card flat"><h3>Automation Build</h3><p class="money">$750-$3,000</p><p>Scripts, dashboards, document generators, file processors, reporting exports, or internal tools.</p></div>
+        <div class="card flat"><h3>Monthly Support Retainer</h3><p class="money">$150-$1,000/mo</p><p>Fixes, monitoring, updates, small improvements, data cleanup, and operator support.</p></div>
+      </div>
+      <div id="offerRows"></div><button class="primary" data-add="offer">Add offer</button>
+    </section>
+
+    <section id="pipeline" class="card">
+      <h2>Sales and Delivery Pipeline</h2>
+      <div class="pipeline">
+        <div class="stage"><strong>Lead:</strong> someone has pain, messy files, repeated admin work, reporting problems, or tool confusion.</div>
+        <div class="stage"><strong>Paid discovery:</strong> small diagnostic fee or first sprint scope. No unpaid custom architecture marathons.</div>
+        <div class="stage"><strong>Build:</strong> ship one useful workflow, dashboard, automation, or document system.</div>
+        <div class="stage"><strong>Retain:</strong> convert ongoing fixes, updates, and reporting into monthly support.</div>
+      </div>
+      <div id="projectRows"></div><button class="primary" data-add="project">Add project</button>
+    </section>
+
+    <section id="clients" class="grid two">
+      <div class="card"><h2>Client Tracker</h2><div id="clientRows"></div><button class="primary" data-add="client">Add client</button></div>
+      <div class="card"><h2>Contact Script</h2><textarea data-save="contact_script">I help small teams turn messy files, repeated admin work, and scattered technical processes into working dashboards, automations, reports, and documented workflows. I usually start with a focused setup sprint so you get something useful quickly.</textarea><div class="fields"><div><label>Next outreach target</label><input data-save="next_outreach"></div><div><label>Follow-up due date</label><input type="date" data-save="followup_due"></div></div></div>
+    </section>
+
+    <section id="automation" class="card">
+      <h2>Automation and System Status</h2>
+      <div class="grid three">
+        <div class="card flat"><span class="status"><span class="dot"></span> Dashboard</span><p class="muted">Client-facing planning and control surface.</p></div>
+        <div class="card flat"><span class="status warn"><span class="dot"></span> Automation Runner</span><p class="muted">Track scripts, exports, jobs, and recurring tasks here until connected to a backend.</p></div>
+        <div class="card flat"><span class="status warn"><span class="dot"></span> Client Portal</span><p class="muted">Future module: intake, files, invoices, status, deliverables.</p></div>
+      </div>
+      <div id="automationRows"></div><button class="primary" data-add="automation">Add automation/job</button>
+    </section>
+
+    <section id="launch" class="grid two">
+      <div class="card"><h2>Launch Checklist</h2><div id="launchChecks"></div></div>
+      <div class="card"><h2>Build Priorities</h2><div id="priorityRows"></div><button class="primary" data-add="priority">Add priority</button></div>
+    </section>
+
+    <section id="revenue" class="card">
+      <h2>Revenue Controls</h2>
+      <div class="fields three">
+        <div><label>Monthly revenue target</label><input type="number" data-save="monthly_target" value="3000"></div>
+        <div><label>Average project price</label><input type="number" data-save="avg_project" value="1000"></div>
+        <div><label>Retainer monthly base</label><input type="number" data-save="retainer_base" value="500"></div>
+        <div><label>Expected projects this month</label><input type="number" data-save="expected_projects" value="2"></div>
+        <div><label>Software/tool overhead</label><input type="number" data-save="tool_overhead" value="125"></div>
+        <div><label>Advertising/outreach budget</label><input type="number" data-save="ad_budget" value="150"></div>
+      </div>
+      <table style="margin-top:12px"><thead><tr><th>Metric</th><th>Amount</th><th>Meaning</th></tr></thead><tbody id="revenueRows"></tbody></table>
+    </section>
+
+    <section id="notes" class="card">
+      <h2>Operator Notes</h2>
+      <div class="fields">
+        <div><label>30-day execution plan</label><textarea data-save="plan_30">Package three services, contact first five prospects, ship one dashboard demo, and document the repeatable delivery steps.</textarea></div>
+        <div><label>90-day execution plan</label><textarea data-save="plan_90">Close paid setup work, convert at least two clients to retainers, and identify repeated tasks that should become software modules.</textarea></div>
+        <div><label>Risks</label><textarea data-save="risks">Scope creep, unpaid custom work, weak bookkeeping, too many tool experiments, and building software before selling the service workflow.</textarea></div>
+        <div><label>Decision log</label><textarea data-save="decision_log"></textarea></div>
+      </div>
+    </section>
+  </main>
+  <script>
+    const key="ionCommandDashboard.v1"; const state=JSON.parse(localStorage.getItem(key)||"{}");
+    const defs={
+      offer:["Name","Price","Deliverable","Notes"],
+      project:["Client","Project","Stage","Value","Due date","Next action","Notes"],
+      client:["Name","Contact","Need","Status","Next follow-up","Notes"],
+      automation:["Job","Input","Output","Frequency","Status","Owner/Contact","Notes"],
+      priority:["Priority","Why it matters","Due date","Status","Notes"]
+    };
+    const seeds={
+      offer:[["Workflow Setup Sprint","750","Clean workflow map, folder/app structure, checklist, and handoff docs","Good first sale."],["Automation Build","1500","Script, dashboard, report generator, or file-processing workflow","Price by outcome."],["Monthly Support Retainer","300","Small fixes, monitoring, updates, and reporting support","Recurring base."]],
+      project:[["Demo prospect","iON dashboard demo","Lead","1000","","Send demo link","Use this page as proof of execution."]],
+      client:[["First local business","", "Messy admin/data workflow","Prospect","",""]],
+      automation:[["Weekly client report","Client CSV/files","PDF/HTML report","Weekly","Designing","iON",""]],
+      priority:[["Publish iON dashboard","Makes the brand real and shareable","", "In progress",""]]
+    };
+    const checks=["Define iON's three sellable packages","Create one-page intake form","Prepare simple agreement/invoice template","Open clean bookkeeping category for iON","Build prospect list","Make first paid setup offer","Create reusable delivery checklist","Turn first repeated workflow into module spec"];
+    function save(){localStorage.setItem(key,JSON.stringify(state));}
+    function safe(s){return s.toLowerCase().replace(/[^a-z0-9]+/g,"_").replace(/^_|_$/g,"")}
+    function bind(el,k){if(state[k]!==undefined)el.type==="checkbox"?el.checked=!!state[k]:el.value=state[k];el.addEventListener("input",()=>{state[k]=el.type==="checkbox"?el.checked:el.value;save();calc();});}
+    document.querySelectorAll("[data-save]").forEach(el=>bind(el,el.dataset.save));
+    function row(type, values=[]){const root=document.getElementById(type+"Rows"); const idx=root.children.length; const box=document.createElement("div"); box.className="row"; const fields=document.createElement("div"); fields.className="fields"; defs[type].forEach((name,i)=>{const w=document.createElement("div"); const l=document.createElement("label"); l.textContent=name; const input=name==="Notes"||name==="Deliverable"||name==="Need"||name==="Next action"||name==="Why it matters"?document.createElement("textarea"):document.createElement("input"); if(name==="Due date"||name==="Next follow-up")input.type="date"; if(name==="Value"||name==="Price")input.type="number"; input.value=values[i]||""; bind(input,`${type}_${idx}_${safe(name)}`); w.append(l,input); fields.append(w);}); box.append(fields); root.append(box);}
+    Object.keys(defs).forEach(t=>(seeds[t]||[[]]).forEach(v=>row(t,v)));
+    document.querySelectorAll("[data-add]").forEach(b=>b.addEventListener("click",()=>row(b.dataset.add,[])));
+    const checkRoot=document.getElementById("launchChecks"); checks.forEach((txt,i)=>{const l=document.createElement("label"); l.className="check"; const c=document.createElement("input"); c.type="checkbox"; bind(c,`launch_${i}`); const s=document.createElement("span"); s.textContent=txt; l.append(c,s); checkRoot.append(l);});
+    function money(n){return (Number(n)||0).toLocaleString(undefined,{style:"currency",currency:"USD",maximumFractionDigits:0});}
+    function val(k){return Number(state[k] ?? document.querySelector(`[data-save="${k}"]`)?.value ?? 0)||0}
+    function calc(){const target=val("monthly_target"), avg=val("avg_project"), ret=val("retainer_base"), exp=val("expected_projects"), tools=val("tool_overhead"), ads=val("ad_budget"); let pipe=0; Object.keys(state).forEach(k=>{if(k.startsWith("project_")&&k.endsWith("_value"))pipe+=Number(state[k])||0;}); const gross=avg*exp+ret, overhead=tools+ads, net=gross-overhead; document.getElementById("targetOut").textContent=money(target); document.getElementById("pipelineOut").textContent=money(pipe); document.getElementById("retainerOut").textContent=money(ret); document.getElementById("revenueRows").innerHTML=[["Projected gross",gross,"Projects plus retainers."],["Monthly overhead",overhead,"Tools plus outreach budget."],["Projected net before tax",net,"Rough operating estimate."],["Gap to target",Math.max(target-gross,0),"Additional revenue needed to hit monthly target."]].map(r=>`<tr><td>${r[0]}</td><td class="money">${money(r[1])}</td><td>${r[2]}</td></tr>`).join("");}
+    calc();
+    document.getElementById("exportBtn").onclick=()=>{const blob=new Blob([JSON.stringify({exportedAt:new Date().toISOString(),state},null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="ion-dashboard.json";a.click();URL.revokeObjectURL(a.href);};
+    document.getElementById("resetBtn").onclick=()=>{if(confirm("Clear saved iON dashboard data?")){localStorage.removeItem(key);location.reload();}};
+  </script>
+</body>
+</html>
