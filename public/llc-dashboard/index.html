@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Iowa Remote LLC Formation Dashboard</title>
+  <title>Nationwide LLC Formation Strategy Dashboard</title>
   <style>
     :root {
       --bg: #f6f7f9;
@@ -138,6 +138,33 @@
     .small { font-size: .86rem; color: var(--muted); }
     .split-title { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
     .source-list li { margin: 7px 0; }
+    .notice { border-left: 4px solid var(--blue); background: #eef6ff; }
+    .diagram {
+      display: grid;
+      gap: 8px;
+      align-items: center;
+      justify-items: center;
+      text-align: center;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcfd;
+      min-height: 170px;
+    }
+    .node {
+      width: min(100%, 280px);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 9px 10px;
+      background: #fff;
+      font-weight: 800;
+    }
+    .arrow { color: var(--muted); font-weight: 900; }
+    .branch { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; width: 100%; }
+    .branch .node { width: 100%; font-size: .86rem; }
+    .myth { display: grid; grid-template-columns: 1fr; gap: 8px; border-top: 1px solid var(--line); padding: 10px 0; }
+    .myth:first-child { border-top: 0; padding-top: 0; }
+    .lookup-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
     footer { padding: 20px 16px 32px; color: var(--muted); }
     @media (min-width: 760px) {
       header { padding: 34px 24px 26px; }
@@ -148,6 +175,7 @@
       .fieldgrid { grid-template-columns: repeat(2, 1fr); }
       .fieldgrid.three { grid-template-columns: repeat(3, 1fr); }
       .fieldgrid.four { grid-template-columns: repeat(4, 1fr); }
+      .myth { grid-template-columns: .75fr 1.25fr; }
     }
     @media print {
       body { background: #fff; color: #000; font-size: 11pt; }
@@ -164,8 +192,8 @@
   <header>
     <div class="wrap topbar">
       <div>
-        <h1>Iowa Remote LLC Formation Dashboard</h1>
-        <p class="subtitle">Comparison paths for Delaware, Wyoming, and New Mexico LLCs operated remotely from Iowa, with Iowa foreign registration, privacy tradeoffs, funding reality, ROI planning, and document tracking.</p>
+        <h1>Nationwide LLC Formation Strategy Dashboard</h1>
+        <p class="subtitle">A public educational dashboard for comparing Wyoming, Delaware, and New Mexico LLC formation, registered agents, trust-owned structures, holding-company design, privacy limits, and nationwide foreign qualification planning.</p>
       </div>
       <div class="actions">
         <button type="button" id="exportBtn">Export JSON</button>
@@ -176,85 +204,180 @@
   </header>
   <nav>
     <div class="wrap">
-      <a href="#paths">State Paths</a><a href="#iowa">Iowa</a><a href="#checklists">Checklists</a><a href="#credit">Credit</a><a href="#funding">SBA</a><a href="#plan">Business Plan</a><a href="#roi">ROI</a><a href="#structure">Structure</a><a href="#tracking">Tracking</a>
+      <a href="#overview">Overview</a><a href="#operating-state">Formation vs Operation</a><a href="#paths">State Comparison</a><a href="#agents">Registered Agents</a><a href="#trusts">Trust-Owned LLCs</a><a href="#foreign">Foreign Qualification</a><a href="#structure">Holding Companies</a><a href="#privacy">Privacy</a><a href="#lookup">Entity Lookup</a><a href="#resources">Official Resources</a><a href="#tracking">Trackers</a>
     </div>
   </nav>
   <main class="wrap">
     <section id="overview" class="grid three">
-      <div class="card good"><h3>iON Data Management Systems</h3><p>Software development, data systems, automation, technical workflow tools. Start with productized services, setup work, documentation, dashboards, and support retainers before relying on licensing.</p></div>
-      <div class="card good"><h3>NovaSignal</h3><p>Small business marketing, web development, branding, campaign systems. Start with fixed-price packages and recurring monthly retainers.</p></div>
-      <div class="card warn"><h3>Van Honey Ltd</h3><p>Existing Colorado Ltd formed in May 2021 in Broomfield, Colorado. Treat as possible parent or holding company only after verifying status, tax history, banking history, D-U-N-S profile, and exact legal form.</p></div>
+      <div class="card good"><h3>Choose for the business model</h3><p>No formation state is universally best. The useful question is whether the jurisdiction fits the entity's operational footprint, ownership structure, investor expectations, maintenance budget, and compliance plan.</p></div>
+      <div class="card notice"><h3>Educational disclaimer</h3><p>This dashboard is provided for general educational purposes only and does not constitute legal, tax, financial, or compliance advice. Business formation requirements vary by jurisdiction, ownership structure, tax classification, operational footprint, and business activity. Users should consult qualified legal and tax professionals before forming or registering an entity.</p></div>
+      <div class="card warn"><h3>Privacy has boundaries</h3><p>Public record minimization can reduce casual exposure, but banks, the IRS, registered agents, courts, tax agencies, licensing bodies, and lawful discovery can still require or reveal identity and control information.</p></div>
+    </section>
+
+    <section id="operating-state" class="card">
+      <div class="split-title"><h2>Formation State vs Operating State</h2><span class="badge">Nationwide concept</span></div>
+      <p>Forming an LLC in Wyoming, Delaware, New Mexico, or any other state does not automatically exempt the company from registering where it actually operates. In many situations, the operating state matters more than the formation state because that is where employees, offices, inventory, contracts, local licenses, and tax nexus may exist.</p>
+      <div class="grid two">
+        <div>
+          <h3>Common "doing business" triggers</h3>
+          <ul>
+            <li>Employees, contractors, offices, storefronts, warehouses, or other physical locations in a state.</li>
+            <li>Recurring in-state work, local service delivery, regular in-state contracts, or state/local licensing requirements.</li>
+            <li>Inventory, equipment, property, sales-tax nexus, payroll-tax nexus, or income/franchise-tax nexus.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Terms to understand</h3>
+          <ul>
+            <li><strong>Foreign qualification:</strong> registering a company formed in one jurisdiction to transact business in another.</li>
+            <li><strong>Certificate of authority:</strong> a state-issued authorization for an out-of-state entity to operate there.</li>
+            <li><strong>Multi-state compliance:</strong> keeping registrations, registered agents, tax accounts, licenses, and reports current in each required state.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="diagram" aria-label="Foreign qualification diagram">
+        <div class="node">Formation State LLC</div>
+        <div class="arrow">down</div>
+        <div class="node">Business Activity in Another State</div>
+        <div class="arrow">down</div>
+        <div class="node">Foreign Qualification / Certificate of Authority</div>
+      </div>
     </section>
 
     <section id="paths">
-      <div class="split-title"><h2>Three Formation Paths</h2><span class="badge">Operating remotely from Iowa</span></div>
+      <div class="split-title"><h2>Wyoming vs Delaware vs New Mexico</h2><span class="badge">Compare by fit, not hype</span></div>
       <div class="grid three">
         <details open>
-          <summary>Delaware LLC + Iowa foreign registration <span>+</span></summary>
+          <summary>Delaware LLC <span>+</span></summary>
           <div class="inside">
-            <p><strong>Best fit:</strong> investor familiarity, mature business-law reputation, and holding-company credibility. Less private than New Mexico, more annual cost than Wyoming/New Mexico.</p>
+            <p><strong>Best fit:</strong> venture-backed startups, investor-facing companies, complex equity plans, IP holding entities, and businesses that value Delaware's corporate-law familiarity. Maintenance may be more expensive than Wyoming or New Mexico.</p>
             <div class="record"><h3>Checklist</h3><div data-checklist="de-check"></div></div>
             <div class="record"><h3>Document tracker</h3><div data-record="delaware"></div></div>
           </div>
         </details>
         <details open>
-          <summary>Wyoming LLC + Iowa foreign registration <span>+</span></summary>
+          <summary>Wyoming LLC <span>+</span></summary>
           <div class="inside">
-            <p><strong>Best fit:</strong> privacy-minded ownership, low annual state burden, and simple maintenance. Common online-business choice, but Iowa registration still exposes Iowa operating presence.</p>
+            <p><strong>Best fit:</strong> privacy-oriented small businesses, holding companies, online businesses, agencies, and owners who want relatively low maintenance. It is not automatically the right state if the business mainly operates elsewhere.</p>
             <div class="record"><h3>Checklist</h3><div data-checklist="wy-check"></div></div>
             <div class="record"><h3>Document tracker</h3><div data-record="wyoming"></div></div>
           </div>
         </details>
         <details open>
-          <summary>New Mexico LLC + Iowa foreign registration <span>+</span></summary>
+          <summary>New Mexico LLC <span>+</span></summary>
           <div class="inside">
-            <p><strong>Best fit:</strong> privacy and low state maintenance. New Mexico is often attractive because it does not require a routine annual report for LLCs, but Iowa foreign registration is still needed when operating from Iowa.</p>
+            <p><strong>Best fit:</strong> small owner-operated companies, public record minimization, low state maintenance, and simple administrative structures. It may be less familiar for investors or complex financing than Delaware.</p>
             <div class="record"><h3>Checklist</h3><div data-checklist="nm-check"></div></div>
             <div class="record"><h3>Document tracker</h3><div data-record="newmexico"></div></div>
           </div>
         </details>
       </div>
+      <table style="margin-top:14px">
+        <thead><tr><th>Factor</th><th>Wyoming</th><th>Delaware</th><th>New Mexico</th></tr></thead>
+        <tbody>
+          <tr><td>Public owner privacy</td><td>Often strong public record minimization.</td><td>Moderate; strong legal infrastructure matters more than privacy.</td><td>Often strong public record minimization.</td></tr>
+          <tr><td>Registered agent</td><td>Required, generally with in-state physical address.</td><td>Required, generally with in-state physical address.</td><td>Required, generally with in-state physical address.</td></tr>
+          <tr><td>Annual reports / fees</td><td>Annual report/license tax expected; verify current fee.</td><td>LLC tax and state maintenance expected; verify current amount.</td><td>No routine LLC annual report is commonly cited; verify current rule.</td></tr>
+          <tr><td>Investor familiarity</td><td>Moderate for private/closely held companies.</td><td>High for venture-backed and institutional structures.</td><td>Lower for venture-backed structures.</td></tr>
+          <tr><td>Best-fit models</td><td>Online business, agency, holding company, private ownership organization.</td><td>SaaS startup, venture-backed company, IP holding entity, complex capitalization.</td><td>Freelancer, small online business, simple holding company, low-maintenance entity.</td></tr>
+          <tr><td>Privacy limitations</td><td>Not private from IRS, banks, subpoenas, tax agencies, or lawful discovery.</td><td>Not private from IRS, banks, subpoenas, tax agencies, or lawful discovery.</td><td>Not private from IRS, banks, subpoenas, tax agencies, or lawful discovery.</td></tr>
+          <tr><td>Multi-state considerations</td><td>Must foreign qualify where required by operations.</td><td>Must foreign qualify where required by operations.</td><td>Must foreign qualify where required by operations.</td></tr>
+        </tbody>
+      </table>
     </section>
 
     <section id="costs" class="grid two">
       <div class="card">
         <h2>Startup Cost Comparison</h2>
         <table>
-          <thead><tr><th>Path</th><th>State filing</th><th>Iowa foreign registration</th><th>Registered agent</th><th>Plain-English note</th></tr></thead>
+          <thead><tr><th>Path</th><th>Formation filing</th><th>Foreign qualification</th><th>Registered agent</th><th>Plain-English note</th></tr></thead>
           <tbody>
-            <tr><td>Delaware</td><td><input data-save="cost_de_state" value="Enter current Delaware certificate cost"></td><td><input data-save="cost_de_ia" value="Enter Iowa filing cost"></td><td><input data-save="cost_de_ra" value="Annual agent quote"></td><td>Usually higher maintenance, strong legal reputation.</td></tr>
-            <tr><td>Wyoming</td><td><input data-save="cost_wy_state" value="Enter current Wyoming filing cost"></td><td><input data-save="cost_wy_ia" value="Enter Iowa filing cost"></td><td><input data-save="cost_wy_ra" value="Annual agent quote"></td><td>Often low-cost and privacy-friendly.</td></tr>
-            <tr><td>New Mexico</td><td><input data-save="cost_nm_state" value="Enter current New Mexico filing cost"></td><td><input data-save="cost_nm_ia" value="Enter Iowa filing cost"></td><td><input data-save="cost_nm_ra" value="Annual agent quote"></td><td>Often lowest state maintenance burden.</td></tr>
+            <tr><td>Delaware</td><td><input data-save="cost_de_state" value="Enter current Delaware certificate cost"></td><td><input data-save="cost_de_foreign" value="Enter operating-state filing cost"></td><td><input data-save="cost_de_ra" value="Annual agent quote"></td><td>Usually higher maintenance, strong legal reputation.</td></tr>
+            <tr><td>Wyoming</td><td><input data-save="cost_wy_state" value="Enter current Wyoming filing cost"></td><td><input data-save="cost_wy_foreign" value="Enter operating-state filing cost"></td><td><input data-save="cost_wy_ra" value="Annual agent quote"></td><td>Often low-cost and privacy-oriented.</td></tr>
+            <tr><td>New Mexico</td><td><input data-save="cost_nm_state" value="Enter current New Mexico filing cost"></td><td><input data-save="cost_nm_foreign" value="Enter operating-state filing cost"></td><td><input data-save="cost_nm_ra" value="Annual agent quote"></td><td>Often low state maintenance burden.</td></tr>
           </tbody>
         </table>
       </div>
       <div class="card">
         <h2>Annual Maintenance Comparison</h2>
         <table>
-          <thead><tr><th>Path</th><th>Home-state annual</th><th>Iowa recurring</th><th>Privacy maintenance</th></tr></thead>
+          <thead><tr><th>Path</th><th>Home-state annual</th><th>Operating-state recurring</th><th>Privacy maintenance</th></tr></thead>
           <tbody>
-            <tr><td>Delaware</td><td>Franchise tax / report obligations may apply.</td><td>Iowa filings, taxes, registered agent or office requirements as applicable.</td><td>Use registered agent and clean business address; bank still verifies beneficial owners.</td></tr>
-            <tr><td>Wyoming</td><td>Annual report/license tax generally expected.</td><td>Iowa filings and Iowa tax compliance remain required.</td><td>Strong privacy posture, but not anonymity from banks, IRS, or law enforcement.</td></tr>
-            <tr><td>New Mexico</td><td>No routine LLC annual report is commonly cited; verify current rule before filing.</td><td>Iowa foreign registration and taxes still matter.</td><td>Good public-record privacy, but registered agent and FinCEN/IRS/bank records still exist.</td></tr>
+            <tr><td>Delaware</td><td>LLC tax and related obligations may apply.</td><td>Operating-state filings, taxes, registered agent, office, or licensing requirements may apply.</td><td>Use a registered agent and clean business address; banks still verify beneficial owners.</td></tr>
+            <tr><td>Wyoming</td><td>Annual report/license tax generally expected.</td><td>Operating-state filings and tax compliance remain required where triggered.</td><td>Privacy-oriented public records, but not invisibility from banks, IRS, or law enforcement.</td></tr>
+            <tr><td>New Mexico</td><td>No routine LLC annual report is commonly cited; verify current rule before filing.</td><td>Foreign registration and taxes still matter where the business operates.</td><td>Good public-record privacy, but registered agent, IRS, bank, and beneficial ownership records can still exist.</td></tr>
           </tbody>
         </table>
       </div>
     </section>
 
-    <section id="privacy" class="card">
-      <h2>Privacy Comparison</h2>
+    <section id="agents" class="card">
+      <h2>Registered Agents</h2>
+      <p>A registered agent is the in-state contact designated to receive service of process, lawsuits, official state notices, compliance correspondence, and annual-report reminders. Wyoming, Delaware, and New Mexico all require registered agents, and the agent generally must maintain a physical address in that state.</p>
       <div class="grid three">
-        <div><h3>Delaware</h3><p>Good for business-law reputation, moderate privacy. Public-facing filings may be less owner-revealing than some states, but registered agent records, bank KYC, tax filings, contracts, and beneficial ownership rules can still identify control persons.</p></div>
-        <div><h3>Wyoming</h3><p>Strong privacy reputation and low owner-disclosure footprint. It is not magic anonymity; lenders, banks, IRS, payment processors, and registered agents can require real identity information.</p></div>
-        <div><h3>New Mexico</h3><p>Strong privacy and low annual filing friction. It is often the simplest privacy-friendly state for small remote companies, but Iowa registration reduces practical privacy if the business is visibly operated in Iowa.</p></div>
+        <div class="card"><h3>What they do</h3><p>Receive legal notices, state correspondence, and compliance mail at a reliable in-state address.</p></div>
+        <div class="card"><h3>What they do not do</h3><p>They do not own the LLC, become the trustee, act as a manager/member, or replace the operating agreement.</p></div>
+        <div class="card"><h3>Why selection matters</h3><p>A weak agent can cause missed notices, administrative dissolution, default judgments, or stale state records.</p></div>
       </div>
     </section>
 
-    <section id="iowa" class="card">
-      <h2>Iowa Foreign-Registration Checklist</h2>
-      <p>Use this when the LLC is formed in Delaware, Wyoming, or New Mexico but managed from Iowa, serving Iowa clients, holding Iowa office presence, or otherwise transacting business in Iowa.</p>
-      <div data-checklist="iowa-check"></div>
-      <div class="record"><h3>Iowa filing tracker</h3><div data-record="iowa"></div></div>
+    <section id="trusts" class="card">
+      <h2>Trust-Owned LLC Structures</h2>
+      <p>A trust-owned LLC is usually created by assigning the LLC membership interest to a trust or forming the LLC with a trust as member when state law, the operating agreement, banking requirements, and tax planning allow it. This is mainly an ownership organization, estate planning, and continuity tool.</p>
+      <div class="grid two">
+        <div>
+          <h3>Core terms</h3>
+          <ul>
+            <li><strong>Grantor / settlor:</strong> the person who creates and funds the trust.</li>
+            <li><strong>Trustee:</strong> the person or institution with authority to administer trust property.</li>
+            <li><strong>Beneficiary:</strong> the person or class that benefits under the trust terms.</li>
+            <li><strong>Revocable living trust:</strong> commonly used for estate planning and continuity; often changeable by the grantor.</li>
+            <li><strong>Irrevocable trust:</strong> less flexible and more specialized; requires professional legal and tax design.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Practical requirements</h3>
+          <ul>
+            <li>Assignment of membership interests and trust funding should be documented.</li>
+            <li>The operating agreement should recognize trustee authority and transfer restrictions.</li>
+            <li>Banks and the IRS still require identity verification and responsible-party information.</li>
+            <li>EINs do not magically replace SSNs or remove beneficial ownership realities.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="diagram" aria-label="Trust owned LLC diagram">
+        <div class="node">Revocable Living Trust</div>
+        <div class="arrow">down</div>
+        <div class="node">LLC Membership Interest</div>
+        <div class="arrow">down</div>
+        <div class="node">Holding or Operating LLC</div>
+      </div>
+    </section>
+
+    <section id="foreign" class="card">
+      <h2>Nationwide Foreign Qualification</h2>
+      <p>Foreign qualification is not limited to one state and not tied to any single formation jurisdiction. It is the ordinary process of registering an out-of-state LLC in another state when the company's activity there crosses that state's doing-business threshold.</p>
+      <div data-checklist="foreign-check"></div>
+      <div class="record"><h3>Foreign qualification tracker</h3><div data-record="foreign"></div></div>
+    </section>
+
+    <section id="privacy" class="card">
+      <h2>Privacy vs Legal Traceability</h2>
+      <div class="grid three">
+        <div><h3>Public privacy</h3><p>Privacy-oriented formations can reduce public exposure, use registered agent addresses, and limit casual public ownership visibility depending on state records.</p></div>
+        <div><h3>Legal traceability</h3><p>IRS records, banking KYC, subpoenas, lawful discovery, tax audits, licensing records, payment processors, and financial-institution reporting can identify real people behind a company.</p></div>
+        <div><h3>Practical planning</h3><p>Use public record minimization and administrative separation for safety and organization, not to imply concealed ownership, tax exemption, or immunity from lawful requests.</p></div>
+      </div>
+    </section>
+
+    <section id="misconceptions" class="card">
+      <h2>Common Misconceptions</h2>
+      <div class="myth"><strong>Wyoming LLCs avoid all taxes.</strong><span>Formation state does not eliminate federal, operating-state, payroll, sales, franchise, income, licensing, or local tax obligations.</span></div>
+      <div class="myth"><strong>A trust makes ownership invisible.</strong><span>Trusts can organize ownership and estate planning, but banks, tax agencies, courts, and lawful discovery can still require identity information.</span></div>
+      <div class="myth"><strong>An EIN replaces an SSN.</strong><span>An EIN identifies the business for federal tax administration. Responsible parties and beneficial owners may still need to provide SSNs or other taxpayer identification.</span></div>
+      <div class="myth"><strong>Delaware is always best.</strong><span>Delaware is familiar for investors and complex structures, but may be unnecessary for many small operating companies.</span></div>
+      <div class="myth"><strong>Foreign qualification is optional.</strong><span>If state law requires registration based on business activity, skipping it can create penalties, back fees, tax problems, and litigation issues.</span></div>
+      <div class="myth"><strong>Public-record privacy removes all traceability.</strong><span>Public record minimization is different from legal traceability. Professional planning should assume lawful traceability exists.</span></div>
     </section>
 
     <section id="checklists" class="grid two">
@@ -267,8 +390,8 @@
     </section>
 
     <section id="credit" class="card danger">
-      <h2>Personal Credit Scenario: 550 Score</h2>
-      <p>A 550 personal credit score affects bank approvals, business credit cards, SBA lending, personal guarantees, interest rates, vendor terms, and equipment/software financing. A new EIN does not erase personal underwriting, and EIN-only funding should not be treated as realistic startup capital.</p>
+      <h2>Credit and Banking Reality</h2>
+      <p>Business formation does not erase underwriting. Banks, lenders, payment processors, insurers, and vendors may review personal credit, operating history, deposits, revenue, identity documents, ownership records, and personal guarantees. EIN-only funding should not be treated as reliable startup capital.</p>
       <div class="timeline">
         <div class="step"><strong>Month 0-3:</strong> mostly self-funded, prepaid tools, secured card, business checking, basic vendor accounts, clean bookkeeping.</div>
         <div class="step"><strong>Month 3-6:</strong> small vendor terms may become possible if early payments are clean and records are organized.</div>
@@ -278,15 +401,13 @@
     </section>
 
     <section id="funding" class="card">
-      <h2>Trump / SBA Funding and Policy Context</h2>
-      <p>These are official programs and policy references. They are not guaranteed grants, and most loans require underwriting, repayment ability, documentation, and often a personal guarantee.</p>
+      <h2>Funding and Public Program Context</h2>
+      <p>These official programs are financing references, not guaranteed grants. Most loans require underwriting, repayment ability, documentation, revenue assumptions, collateral analysis, and often a personal guarantee.</p>
       <ul class="source-list">
         <li><strong>SBA 7(a) Loan Program:</strong> primary SBA business loan program. <a href="https://www.sba.gov/funding-programs/loans/7a-loans">Official source</a>.</li>
         <li><strong>SBA 504 Loan Program:</strong> long-term fixed-asset financing, usually real estate/equipment. <a href="https://www.sba.gov/funding-programs/loans/504-loans">Official source</a>.</li>
         <li><strong>SBA Microloans:</strong> smaller loans through intermediary lenders. <a href="https://www.sba.gov/funding-programs/loans/microloans">Official source</a>.</li>
         <li><strong>SBA Lender Match:</strong> tool to connect with SBA-approved lenders. <a href="https://www.sba.gov/funding-programs/loans/lender-match">Official source</a>.</li>
-        <li><strong>Guaranteeing Fair Banking for All Americans:</strong> executive order focused on fair banking access; use as banking-access policy context, not a grant. <a href="https://www.whitehouse.gov/presidential-actions/2025/08/guaranteeing-fair-banking-for-all-americans/">Official source</a>.</li>
-        <li><strong>One Big Beautiful Bill Act / small business tax deduction:</strong> tax-policy context, not direct startup funding. <a href="https://www.whitehouse.gov/releases/2025/07/president-trumps-one-big-beautiful-bill-a-win-for-workers-farmers-and-americas-future/">Official source</a>.</li>
         <li><strong>SBA FY2025 capital access report:</strong> SBA reported major 7(a), 504, and SBIC capital access activity. <a href="https://www.sba.gov/annual-report/">Official source</a>.</li>
       </ul>
       <div class="record"><h3>Funding contact tracker</h3><div data-record="funding"></div></div>
@@ -297,18 +418,18 @@
       <div class="fieldgrid three" id="businessPlanFields"></div>
       <div class="grid two" style="margin-top:14px">
         <div class="card good">
-          <h3>iON profit methodology</h3>
-          <p>Start with productized services, not only software licensing. Offer paid setup, workflow automation, data cleanup, internal dashboard builds, and technical documentation. Build recurring revenue through monthly support retainers. Later convert repeated service workflows into software modules.</p>
+          <h3>Service business example</h3>
+          <p>A small agency or professional-service company may prioritize low maintenance, clear bookkeeping, a simple operating agreement, registered agent reliability, and foreign qualification in the main operating state.</p>
         </div>
         <div class="card good">
-          <h3>NovaSignal profit methodology</h3>
-          <p>Sell simple fixed-price packages first: Starter Website, Brand Identity Kit, Local Campaign Setup, Monthly Maintenance, and SEO/Google Business Profile Cleanup. Add recurring monthly retainers after the first project.</p>
+          <h3>Startup example</h3>
+          <p>A venture-oriented SaaS company may prioritize investor familiarity, IP assignment records, capitalization planning, Delaware counsel familiarity, and tax/accounting cleanup before fundraising.</p>
         </div>
       </div>
     </section>
 
     <section id="roi" class="card">
-      <h2>Smallest Investment Into Myself Calculator</h2>
+      <h2>Formation and First-Year Cost Calculator</h2>
       <div class="fieldgrid four" id="roiInputs"></div>
       <div class="grid four" style="margin-top:14px">
         <div class="card"><div class="small">Break-even month</div><div class="mathout" id="breakeven">-</div></div>
@@ -323,27 +444,61 @@
     </section>
 
     <section id="structure">
-      <h2>Entity Structure Options</h2>
+      <h2>Holding Companies vs Operating Companies</h2>
       <div class="grid three">
         <div class="card">
-          <h3>Option A: Van Honey Ltd as parent</h3>
-          <p>Van Honey Ltd as parent/holding company owns iON Data Management Systems and NovaSignal. iON operates software activity. NovaSignal operates marketing activity.</p>
-          <p class="small">Use only after status verification. Old liabilities, delinquent reports, tax issues, or bank history can contaminate a clean launch.</p>
+          <h3>Simple operating LLC</h3>
+          <p>One LLC conducts the business, signs contracts, receives revenue, pays expenses, and maintains accounting records. This is often the cleanest starting point for a small operating business.</p>
         </div>
         <div class="card">
-          <h3>Option B: New privacy LLC as parent</h3>
-          <p>New Delaware, Wyoming, or New Mexico privacy LLC owns iON and NovaSignal. This can create a cleaner parent layer, but requires disciplined banking, contracts, bookkeeping, and intercompany records.</p>
+          <h3>Holding company</h3>
+          <p>A holding LLC may own membership interests, IP, or passive assets. It can support administrative separation and continuity planning, but it adds banking, contracts, bookkeeping, tax, and intercompany documentation work.</p>
         </div>
         <div class="card">
-          <h3>Option C: Clean new operating LLC</h3>
-          <p>Keep Van Honey Ltd inactive until status is verified, then form one clean new operating LLC for initial revenue. Add separate DBAs, brands, or subsidiaries later when revenue justifies complexity.</p>
+          <h3>Subsidiary / asset LLCs</h3>
+          <p>Separate operating, IP, or asset entities can isolate records and activities when there is a real business reason. Complexity should match revenue, risk, licensing, and tax planning needs.</p>
         </div>
       </div>
-      <div class="card warn" style="margin-top:12px">
-        <h3>Before using Van Honey Ltd, verify first</h3>
-        <div data-checklist="vanhoney-check"></div>
-        <div data-record="vanhoney"></div>
+      <div class="diagram" style="margin-top:12px" aria-label="Holding company diagram">
+        <div class="node">Holding LLC</div>
+        <div class="arrow">down</div>
+        <div class="branch">
+          <div class="node">Operating LLC</div>
+          <div class="node">IP Holding LLC</div>
+          <div class="node">Asset LLC</div>
+        </div>
       </div>
+    </section>
+
+    <section id="lookup" class="card">
+      <div class="split-title"><h2>Entity Lookup Tools</h2><span class="badge">Official portals first</span></div>
+      <p>Use the search box to prepare a name query, then open the relevant official state portal. State portals differ: some support direct URL search parameters and others require entering the name after the portal opens.</p>
+      <div class="fieldgrid three">
+        <div><label for="entityName">Entity name</label><input id="entityName" data-save="lookup_entity_name" placeholder="Example Holdings LLC"></div>
+        <div><label for="lookupState">State portal</label><select id="lookupState" data-save="lookup_state"><option value="wy">Wyoming</option><option value="de">Delaware</option><option value="nm">New Mexico</option><option value="irs">IRS EIN information</option></select></div>
+        <div><label>&nbsp;</label><button type="button" class="primary" id="lookupBtn">Open official lookup</button></div>
+      </div>
+      <div class="lookup-actions">
+        <a class="button" href="https://wyobiz.wyo.gov/Business/FilingSearch.aspx" target="_blank" rel="noopener">Wyoming entity search</a>
+        <a class="button" href="https://icis.corp.delaware.gov/ecorp/entitysearch/namesearch.aspx" target="_blank" rel="noopener">Delaware entity search</a>
+        <a class="button" href="https://enterprise.sos.nm.gov/search/business" target="_blank" rel="noopener">New Mexico entity search</a>
+        <a class="button" href="https://www.irs.gov/businesses/employer-identification-number" target="_blank" rel="noopener">IRS EIN information</a>
+      </div>
+      <div class="record"><h3>Entity research tracker</h3><div data-record="entity-lookup"></div></div>
+    </section>
+
+    <section id="resources" class="card">
+      <h2>Official Filing Resources</h2>
+      <ul class="source-list">
+        <li><strong>Wyoming Secretary of State Business Division:</strong> <a href="https://sos.wyo.gov/business/default.aspx">official business filings and entity resources</a>.</li>
+        <li><strong>Wyoming Foreign Certificate of Authority:</strong> <a href="https://sos.wyo.gov/Business/ForeignCertificateofAuthority.aspx">official foreign qualification information</a>.</li>
+        <li><strong>Delaware Division of Corporations:</strong> <a href="https://corp.delaware.gov/">official corporate filing office</a>.</li>
+        <li><strong>Delaware LLC forms:</strong> <a href="https://corp.delaware.gov/corpformsllc09/">official LLC forms and foreign qualification forms</a>.</li>
+        <li><strong>New Mexico Secretary of State Business Services:</strong> <a href="https://www.sos.nm.gov/business-services/?source=0">official business services page</a>.</li>
+        <li><strong>New Mexico online filing portal:</strong> <a href="https://enterprise.sos.nm.gov/">official enterprise portal</a>.</li>
+        <li><strong>IRS EIN information:</strong> <a href="https://www.irs.gov/businesses/employer-identification-number">official EIN page</a>.</li>
+        <li><strong>Delaware One Stop foreign qualification explanation:</strong> <a href="https://onestop.delaware.gov/Prepare_Register">official plain-English foreign qualification overview</a>.</li>
+      </ul>
     </section>
 
     <section id="tracking" class="card">
@@ -358,25 +513,24 @@
     </section>
   </main>
   <footer class="wrap">
-    <p>This dashboard is practical planning support, not legal, tax, lending, or investment advice. Confirm current fees, legal duties, tax status, and filing rules with official state offices, the IRS, SBA-approved lenders, and qualified professionals before filing.</p>
+    <p>This dashboard is general educational planning support, not legal, tax, lending, financial, or compliance advice. Confirm current fees, legal duties, tax status, and filing rules with official state offices, the IRS, SBA-approved lenders, and qualified professionals before filing.</p>
   </footer>
 
   <script>
-    const storeKey = "iowaPrivacyLlcDashboard.v1";
+    const storeKey = "nationwideLlcFormationDashboard.v2";
     const state = JSON.parse(localStorage.getItem(storeKey) || "{}");
 
     const checklists = {
-      "de-check": ["Choose Delaware LLC name", "Hire Delaware registered agent", "File Certificate of Formation", "Create operating agreement", "Track Delaware file number", "Prepare Iowa foreign registration", "Open banking only after EIN and records are consistent"],
-      "wy-check": ["Choose Wyoming LLC name", "Hire Wyoming registered agent", "File Articles of Organization", "Create operating agreement", "Track Wyoming filing ID", "Prepare Iowa foreign registration", "Calendar Wyoming annual report"],
-      "nm-check": ["Choose New Mexico LLC name", "Hire New Mexico registered agent", "File Articles of Organization", "Create operating agreement", "Track New Mexico filing ID", "Prepare Iowa foreign registration", "Confirm current annual-report rule before relying on low maintenance"],
-      "iowa-check": ["Confirm the company is transacting business from Iowa", "Check Iowa name availability or foreign name requirements", "Get certificate of good standing/existence from home state", "File Iowa foreign registration", "List Iowa registered agent or required contact", "Calendar Iowa reports and tax obligations", "Register for Iowa taxes if required"],
+      "de-check": ["Choose Delaware LLC name", "Hire Delaware registered agent", "File Certificate of Formation", "Create operating agreement", "Track Delaware file number", "Evaluate foreign qualification in operating states", "Open banking only after EIN and records are consistent"],
+      "wy-check": ["Choose Wyoming LLC name", "Hire Wyoming registered agent", "File Articles of Organization", "Create operating agreement", "Track Wyoming filing ID", "Evaluate foreign qualification in operating states", "Calendar Wyoming annual report"],
+      "nm-check": ["Choose New Mexico LLC name", "Hire New Mexico registered agent", "File Articles of Organization", "Create operating agreement", "Track New Mexico filing ID", "Evaluate foreign qualification in operating states", "Confirm current annual-report rule before relying on low maintenance"],
+      "foreign-check": ["Identify where the business has employees, offices, inventory, recurring work, property, or local licenses", "Check each state's doing-business standard", "Get certificate of good standing/existence from formation state if needed", "File foreign registration or certificate of authority where required", "Maintain registered agent where required", "Calendar recurring reports, taxes, renewals, and license deadlines", "Review sales tax, payroll tax, income/franchise tax, and local licensing nexus"],
       "ein-check": ["Decide responsible party", "Apply at IRS EIN Assistant", "Save EIN confirmation letter", "Match EIN name to formation records", "Use EIN for bank account", "Update accounting file and W-9"],
       "duns-check": ["Search existing D-U-N-S profile first", "Create or update business identity", "Match legal name and address", "Add website and phone", "Save D-U-N-S number", "Review before applying for vendor credit"],
       "bank-check": ["Prepare articles/certificate", "Prepare operating agreement", "Bring EIN letter", "Bring personal ID", "Bring proof of address", "Explain business activity plainly", "Ask about monthly fees and minimum balance"],
-      "credit-check": ["Separate business phone/email/domain", "Open business checking", "Keep clean deposits and records", "Use bookkeeping from day one", "Pay vendors early", "Avoid EIN-only funding claims", "Track all personal guarantees"],
+      "credit-check": ["Separate business phone/email/domain", "Open business checking", "Keep clean deposits and records", "Use bookkeeping from day one", "Pay vendors early", "Avoid EIN-only funding assumptions", "Track all personal guarantees"],
       "trust-check": ["Decide if trust ownership is actually needed", "Have trust reviewed before naming it as member", "Confirm bank will accept trust-owned LLC", "Document trustee authority", "Keep beneficial ownership records consistent", "Avoid structure complexity before revenue supports it"],
-      "docs-check": ["Articles/certificate", "Operating agreement", "EIN letter", "Iowa foreign registration", "Registered agent agreement", "Bank signature card", "Insurance quotes", "Vendor agreements"],
-      "vanhoney-check": ["Colorado good standing", "Delinquent reports/fees", "Tax status", "D-U-N-S profile", "Bank account history", "Whether it is actually 'Ltd' and what legal form it is", "Whether reinstatement is cheaper than forming new"]
+      "docs-check": ["Articles/certificate", "Operating agreement", "EIN letter", "Foreign registrations/certificates of authority", "Registered agent agreement", "Bank signature card", "Insurance quotes", "Vendor agreements"]
     };
 
     const recordFields = ["Document", "Filing number", "Account number", "Contact", "Cost", "Due date", "Notes"];
@@ -386,7 +540,7 @@
       ["monthlySoftwareCost", "Monthly software cost", 75],
       ["registeredAgentCost", "Registered agent cost", 125],
       ["stateFilingCost", "State filing cost", 100],
-      ["iowaForeignRegistrationCost", "Iowa foreign registration cost", 100],
+      ["foreignRegistrationCost", "Foreign qualification cost", 100],
       ["domainEmailCost", "Domain/email cost", 80],
       ["websiteCost", "Website cost", 150],
       ["advertisingBudget", "Advertising budget", 100],
@@ -477,7 +631,7 @@
       const monthlySoftware = num("monthlySoftwareCost");
       const agent = num("registeredAgentCost");
       const stateFiling = num("stateFilingCost");
-      const iowa = num("iowaForeignRegistrationCost");
+      const foreignRegistration = num("foreignRegistrationCost");
       const domain = num("domainEmailCost");
       const website = num("websiteCost");
       const ads = num("advertisingBudget");
@@ -485,7 +639,7 @@
       const project = num("averageProjectPrice");
       const retainers = num("monthlyRetainerCount");
       const retainerPrice = num("averageRetainerPrice");
-      const firstYearCost = startup + agent + stateFiling + iowa + domain + website + (monthlySoftware * 12) + (ads * 12);
+      const firstYearCost = startup + agent + stateFiling + foreignRegistration + domain + website + (monthlySoftware * 12) + (ads * 12);
       const monthlyRevenue = (clients * project) + (retainers * retainerPrice);
       const annualRevenue = monthlyRevenue * 12;
       const breakeven = monthlyRevenue > 0 ? Math.ceil(firstYearCost / monthlyRevenue) : 0;
@@ -507,7 +661,7 @@
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = "iowa-privacy-llc-dashboard.json";
+      a.download = "nationwide-llc-formation-dashboard.json";
       a.click();
       URL.revokeObjectURL(url);
     });
@@ -516,6 +670,17 @@
         localStorage.removeItem(storeKey);
         location.reload();
       }
+    });
+    document.getElementById("lookupBtn").addEventListener("click", () => {
+      const portal = document.getElementById("lookupState").value;
+      const name = encodeURIComponent(document.getElementById("entityName").value || "");
+      const urls = {
+        wy: "https://wyobiz.wyo.gov/Business/FilingSearch.aspx",
+        de: "https://icis.corp.delaware.gov/ecorp/entitysearch/namesearch.aspx",
+        nm: "https://enterprise.sos.nm.gov/search/business",
+        irs: "https://www.irs.gov/businesses/employer-identification-number"
+      };
+      window.open(urls[portal] + (name ? `#query=${name}` : ""), "_blank", "noopener");
     });
   </script>
 </body>
