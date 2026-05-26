@@ -165,6 +165,14 @@
     .myth { display: grid; grid-template-columns: 1fr; gap: 8px; border-top: 1px solid var(--line); padding: 10px 0; }
     .myth:first-child { border-top: 0; padding-top: 0; }
     .lookup-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+    .resource-panel {
+      margin-top: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcfd;
+      padding: 12px;
+    }
+    .resource-panel h3 { margin-bottom: 6px; }
     footer { padding: 20px 16px 32px; color: var(--muted); }
     @media (min-width: 760px) {
       header { padding: 34px 24px 26px; }
@@ -289,14 +297,16 @@
     <section id="costs" class="grid two">
       <div class="card">
         <h2>Startup Cost Comparison</h2>
+        <p class="small">Fill in the boxes with your own current numbers before comparing states. Use the official state filing page, your registered-agent quote, your operating-state foreign qualification fee, and any mail/address service quote. The table is a worksheet, not a price guarantee.</p>
         <table>
-          <thead><tr><th>Path</th><th>Formation filing</th><th>Foreign qualification</th><th>Registered agent</th><th>Plain-English note</th></tr></thead>
+          <thead><tr><th>Path</th><th>Formation filing</th><th>Foreign qualification</th><th>Registered agent / address service</th><th>Plain-English note</th></tr></thead>
           <tbody>
-            <tr><td>Delaware</td><td><input data-save="cost_de_state" value="Enter current Delaware certificate cost"></td><td><input data-save="cost_de_foreign" value="Enter operating-state filing cost"></td><td><input data-save="cost_de_ra" value="Annual agent quote"></td><td>Usually higher maintenance, strong legal reputation.</td></tr>
-            <tr><td>Wyoming</td><td><input data-save="cost_wy_state" value="Enter current Wyoming filing cost"></td><td><input data-save="cost_wy_foreign" value="Enter operating-state filing cost"></td><td><input data-save="cost_wy_ra" value="Annual agent quote"></td><td>Often low-cost and privacy-oriented.</td></tr>
-            <tr><td>New Mexico</td><td><input data-save="cost_nm_state" value="Enter current New Mexico filing cost"></td><td><input data-save="cost_nm_foreign" value="Enter operating-state filing cost"></td><td><input data-save="cost_nm_ra" value="Annual agent quote"></td><td>Often low state maintenance burden.</td></tr>
+            <tr><td>Delaware</td><td><input data-save="cost_de_state" value="Enter current Delaware certificate cost"></td><td><input data-save="cost_de_foreign" value="Enter each operating-state filing cost"></td><td><input data-save="cost_de_ra" value="Annual agent and mail/address quote"></td><td>Often chosen for investor familiarity and mature business law. Add Delaware tax/maintenance and any state where the business actually operates.</td></tr>
+            <tr><td>Wyoming</td><td><input data-save="cost_wy_state" value="Enter current Wyoming filing cost"></td><td><input data-save="cost_wy_foreign" value="Enter each operating-state filing cost"></td><td><input data-save="cost_wy_ra" value="Annual agent and mail/address quote"></td><td>Often chosen for public record minimization and lower maintenance. Still budget foreign qualification where the business has real activity.</td></tr>
+            <tr><td>New Mexico</td><td><input data-save="cost_nm_state" value="Enter current New Mexico filing cost"></td><td><input data-save="cost_nm_foreign" value="Enter each operating-state filing cost"></td><td><input data-save="cost_nm_ra" value="Annual agent and mail/address quote"></td><td>Often chosen for simple maintenance. Check whether banks, licenses, marketplaces, and operating states accept the address setup you plan to use.</td></tr>
           </tbody>
         </table>
+        <p class="small">Do not compare only the formation filing fee. A realistic first-year comparison includes formation, registered agent, operating agreement help, EIN setup if paid, business address/mail service, foreign qualification, state/local licenses, tax accounts, bookkeeping, bank minimums, insurance, and annual-report or franchise-tax deadlines.</p>
       </div>
       <div class="card">
         <h2>Annual Maintenance Comparison</h2>
@@ -313,36 +323,68 @@
 
     <section id="agents" class="card">
       <h2>Registered Agents</h2>
-      <p>A registered agent is the in-state contact designated to receive service of process, lawsuits, official state notices, compliance correspondence, and annual-report reminders. Wyoming, Delaware, and New Mexico all require registered agents, and the agent generally must maintain a physical address in that state.</p>
+      <p>A registered agent is the person or company listed with the state to receive service of process, lawsuits, subpoenas, official state notices, compliance mail, and annual-report reminders for an LLC or corporation. Most states require every registered business entity to keep a registered agent with a physical street address in that state.</p>
       <div class="grid three">
-        <div class="card"><h3>What they do</h3><p>Receive legal notices, state correspondence, and compliance mail at a reliable in-state address.</p></div>
-        <div class="card"><h3>What they do not do</h3><p>They do not own the LLC, become the trustee, act as a manager/member, or replace the operating agreement.</p></div>
-        <div class="card"><h3>Why selection matters</h3><p>A weak agent can cause missed notices, administrative dissolution, default judgments, or stale state records.</p></div>
+        <div class="card"><h3>What they do</h3><p>Receive legal notices, state correspondence, compliance mail, annual-report notices, and lawsuit papers at a reliable in-state physical address during business hours.</p></div>
+        <div class="card"><h3>What they do not do</h3><p>They do not own the LLC, become the trustee, act as manager/member, run the business, replace a lawyer, or automatically serve as your everyday mailing address.</p></div>
+        <div class="card"><h3>Who offers it</h3><p>Yes. Many businesses sell registered-agent services: national formation companies, law firms, CPA firms, local business-service offices, and state-specific registered-agent companies.</p></div>
       </div>
+      <div class="grid two" style="margin-top:12px">
+        <div class="card notice">
+          <h3>Registered agent vs mailing address</h3>
+          <p>A registered-agent address is mainly for legal and state notices. A business mailing address, virtual mailbox, or Commercial Mail Receiving Agency can receive ordinary mail, scan mail, forward mail, and sometimes provide a street-style address. Those are related services, but they are not automatically the same thing.</p>
+          <p>Some providers bundle both services. Others only receive legal notices and will reject ordinary mail. Ask the provider exactly what they accept before listing the address with banks, vendors, IRS records, marketplaces, licenses, or state registrations.</p>
+        </div>
+        <div class="card warn">
+          <h3>DakotaPost-style services</h3>
+          <p>Yes, there are businesses similar to DakotaPost that offer mail forwarding, virtual mailbox, domicile/residency support, vehicle-registration help, and sometimes registered-agent services. South Dakota has a market for this because some people use mail-forwarding addresses for travel, RV life, fleet/mail management, or state residency planning.</p>
+          <p>Be careful: mail forwarding, legal domicile, tax residency, voter registration, driver's license, vehicle registration, insurance garaging address, and business registered-agent service are different legal questions. A mailbox service may be accepted for one purpose but rejected for another.</p>
+        </div>
+      </div>
+      <table style="margin-top:14px">
+        <thead><tr><th>Address type</th><th>What it is for</th><th>Can it replace a registered agent?</th><th>Watch out for</th></tr></thead>
+        <tbody>
+          <tr><td>Registered agent</td><td>Legal notices and official state service of process.</td><td>It is the required registered-agent listing if accepted by the state.</td><td>May not accept normal business mail, packages, bank cards, or personal mail.</td></tr>
+          <tr><td>Virtual mailbox / CMRA</td><td>Mail receiving, scanning, forwarding, and private mailbox use.</td><td>No, unless the provider also offers registered-agent service in that state.</td><td>USPS Form 1583 and ID verification are normally required; address may show as PMB/CMRA.</td></tr>
+          <tr><td>Commercial office / coworking</td><td>Business presence, office use, meeting space, and sometimes mail.</td><td>Only if the provider agrees and state rules allow it.</td><td>Some offices prohibit legal-service use or require extra registered-agent terms.</td></tr>
+          <tr><td>Domicile / residency service</td><td>Personal mail forwarding, residency support, and sometimes vehicle paperwork help.</td><td>Usually separate from business registered-agent service.</td><td>Vehicle registration and insurance may depend on where the vehicle is kept or garaged.</td></tr>
+        </tbody>
+      </table>
+      <p class="small">Official USPS terminology: a Commercial Mail Receiving Agency is a private business that receives mail for customers and delivers it to a private mailbox or forwards it. USPS Form 1583 authorizes a CMRA to receive mail for you. This does not decide whether a state, bank, DMV, insurer, or licensing agency will accept that address for its own rules.</p>
     </section>
 
     <section id="trusts" class="card">
       <h2>Trust-Owned LLC Structures</h2>
-      <p>A trust-owned LLC is usually created by assigning the LLC membership interest to a trust or forming the LLC with a trust as member when state law, the operating agreement, banking requirements, and tax planning allow it. This is mainly an ownership organization, estate planning, and continuity tool.</p>
+      <p>A trust-owned LLC means the trust owns the LLC membership interest. Think of the LLC as the business container and the trust as the ownership container. The LLC can still run a business, own assets, sign contracts, and open bank accounts. The trust sits above it as the legal owner of the membership interest.</p>
       <div class="grid two">
         <div>
-          <h3>Core terms</h3>
+          <h3>Plain-English pieces</h3>
           <ul>
-            <li><strong>Grantor / settlor:</strong> the person who creates and funds the trust.</li>
-            <li><strong>Trustee:</strong> the person or institution with authority to administer trust property.</li>
-            <li><strong>Beneficiary:</strong> the person or class that benefits under the trust terms.</li>
-            <li><strong>Revocable living trust:</strong> commonly used for estate planning and continuity; often changeable by the grantor.</li>
-            <li><strong>Irrevocable trust:</strong> less flexible and more specialized; requires professional legal and tax design.</li>
+            <li><strong>Grantor / settlor:</strong> the person who creates the trust.</li>
+            <li><strong>Trustee:</strong> the person allowed to sign for and manage the trust property.</li>
+            <li><strong>Beneficiary:</strong> the person or people the trust is meant to benefit.</li>
+            <li><strong>LLC membership interest:</strong> the ownership rights in the LLC, similar to saying "who owns this company."</li>
+            <li><strong>Assignment:</strong> the paperwork that moves ownership of the LLC interest into the trust.</li>
           </ul>
         </div>
         <div>
-          <h3>Practical requirements</h3>
+          <h3>What the diagram means</h3>
           <ul>
-            <li>Assignment of membership interests and trust funding should be documented.</li>
-            <li>The operating agreement should recognize trustee authority and transfer restrictions.</li>
-            <li>Banks and the IRS still require identity verification and responsible-party information.</li>
-            <li>EINs do not magically replace SSNs or remove beneficial ownership realities.</li>
+            <li><strong>Revocable living trust:</strong> the trust document says who controls the trust now and what happens later.</li>
+            <li><strong>Down to LLC membership interest:</strong> the trust owns the ownership interest, not necessarily every asset directly.</li>
+            <li><strong>Down to holding or operating LLC:</strong> the LLC is still the company. It can be a holding company, an operating company, or both.</li>
+            <li><strong>Trustee signs:</strong> the trustee may sign LLC documents as trustee if the trust and operating agreement allow it.</li>
           </ul>
+        </div>
+      </div>
+      <div class="grid two" style="margin-top:12px">
+        <div class="card good">
+          <h3>Why people use this</h3>
+          <p>Common reasons include estate planning, business continuity if the owner dies or becomes incapacitated, organizing family ownership, avoiding confusion about who inherits the membership interest, and separating the ownership plan from daily business operations.</p>
+        </div>
+        <div class="card warn">
+          <h3>What it does not do</h3>
+          <p>A trust does not make ownership invisible, does not remove tax duties, does not prevent banks from asking who controls the company, and does not make an EIN replace all personal identity requirements. It is an ownership and continuity tool, not a privacy magic trick.</p>
         </div>
       </div>
       <div class="diagram" aria-label="Trust owned LLC diagram">
@@ -352,6 +394,17 @@
         <div class="arrow">down</div>
         <div class="node">Holding or Operating LLC</div>
       </div>
+      <details style="margin-top:12px" open>
+        <summary>Practical requirements, translated <span>+</span></summary>
+        <div class="inside">
+          <div class="grid two">
+            <div class="card"><h3>Document the transfer</h3><p>If the LLC already exists, there should usually be an assignment or company record showing the membership interest was moved into the trust. If the LLC is new, the formation and operating agreement can be drafted to show the trust as member from the beginning.</p></div>
+            <div class="card"><h3>Operating agreement must match</h3><p>The LLC operating agreement should say who the member is, who can sign, whether trustee approval is required, and whether ownership transfers are limited. Otherwise the bank, buyer, lender, or court may see conflicting records.</p></div>
+            <div class="card"><h3>Banks and IRS still verify people</h3><p>Even if the trust owns the LLC, banks normally ask for the trustee, grantor, responsible party, beneficial owners, and controlling persons. The IRS also needs a responsible party for EIN records.</p></div>
+            <div class="card"><h3>Get legal/tax help</h3><p>Revocable trusts, irrevocable trusts, single-member LLCs, multi-member LLCs, grantor-trust tax treatment, and estate plans can produce different results. A bad DIY structure can create bank, tax, probate, or ownership problems.</p></div>
+          </div>
+        </div>
+      </details>
     </section>
 
     <section id="foreign" class="card">
@@ -526,14 +579,14 @@
       <p>Use the search box to prepare a name query, then open the relevant official state portal. State portals differ: some support direct URL search parameters and others require entering the name after the portal opens.</p>
       <div class="fieldgrid three">
         <div><label for="entityName">Entity name</label><input id="entityName" data-save="lookup_entity_name" placeholder="Example Holdings LLC"></div>
-        <div><label for="lookupState">State portal</label><select id="lookupState" data-save="lookup_state"><option value="wy">Wyoming</option><option value="de">Delaware</option><option value="nm">New Mexico</option><option value="irs">IRS EIN information</option></select></div>
+        <div><label for="lookupState">State portal</label><select id="lookupState" data-save="lookup_state"></select></div>
         <div><label>&nbsp;</label><button type="button" class="primary" id="lookupBtn">Open official lookup</button></div>
       </div>
+      <div id="stateResourcePanel" class="resource-panel" aria-live="polite"></div>
       <div class="lookup-actions">
-        <a class="button" href="https://wyobiz.wyo.gov/Business/FilingSearch.aspx" target="_blank" rel="noopener">Wyoming entity search</a>
-        <a class="button" href="https://icis.corp.delaware.gov/ecorp/entitysearch/namesearch.aspx" target="_blank" rel="noopener">Delaware entity search</a>
-        <a class="button" href="https://enterprise.sos.nm.gov/search/business" target="_blank" rel="noopener">New Mexico entity search</a>
+        <a class="button" href="https://www.sba.gov/business-guide/launch-your-business/register-your-business" target="_blank" rel="noopener">SBA register your business</a>
         <a class="button" href="https://www.irs.gov/businesses/employer-identification-number" target="_blank" rel="noopener">IRS EIN information</a>
+        <a class="button" href="https://www.grants.gov/search-grants" target="_blank" rel="noopener">Grants.gov search</a>
       </div>
       <div class="record"><h3>Entity research tracker</h3><div data-record="entity-lookup"></div></div>
     </section>
@@ -570,6 +623,59 @@
   <script>
     const storeKey = "nationwideLlcFormationDashboard.v2";
     const state = JSON.parse(localStorage.getItem(storeKey) || "{}");
+
+    const stateResources = {
+      al: { name: "Alabama", office: "Alabama Secretary of State", search: "https://arc-sos.state.al.us/CGI/CORPNAME.MBR/INPUT", filings: "https://www.sos.alabama.gov/business-entities", registeredAgent: "https://www.sos.alabama.gov/business-entities/business-downloads" },
+      ak: { name: "Alaska", office: "Alaska Division of Corporations, Business and Professional Licensing", search: "https://www.commerce.alaska.gov/cbp/main/search/entities", filings: "https://www.commerce.alaska.gov/web/cbpl/Corporations.aspx", registeredAgent: "https://www.commerce.alaska.gov/web/cbpl/Corporations/RegisteredAgents.aspx" },
+      az: { name: "Arizona", office: "Arizona Corporation Commission", search: "https://ecorp.azcc.gov/EntitySearch/Index", filings: "https://azcc.gov/corporations", registeredAgent: "https://azcc.gov/corporations/registered-agents" },
+      ar: { name: "Arkansas", office: "Arkansas Secretary of State", search: "https://www.sos.arkansas.gov/corps/search_all.php", filings: "https://www.sos.arkansas.gov/business-commercial-services-bcs", registeredAgent: "https://www.sos.arkansas.gov/business-commercial-services-bcs" },
+      ca: { name: "California", office: "California Secretary of State", search: "https://bizfileonline.sos.ca.gov/search/business", filings: "https://www.sos.ca.gov/business-programs/business-entities", registeredAgent: "https://www.sos.ca.gov/business-programs/business-entities/faqs" },
+      co: { name: "Colorado", office: "Colorado Secretary of State", search: "https://www.sos.state.co.us/biz/BusinessEntityCriteriaExt.do", filings: "https://www.sos.state.co.us/pubs/business/businessHome.html", registeredAgent: "https://www.sos.state.co.us/pubs/business/FAQs/registeredAgent.html" },
+      ct: { name: "Connecticut", office: "Connecticut Secretary of the State", search: "https://service.ct.gov/business/s/onlinebusinesssearch", filings: "https://portal.ct.gov/sots/business-services", registeredAgent: "https://portal.ct.gov/sots/business-services" },
+      de: { name: "Delaware", office: "Delaware Division of Corporations", search: "https://icis.corp.delaware.gov/ecorp/entitysearch/namesearch.aspx", filings: "https://corp.delaware.gov/", registeredAgent: "https://corp.delaware.gov/agents/" },
+      fl: { name: "Florida", office: "Florida Division of Corporations", search: "https://search.sunbiz.org/Inquiry/CorporationSearch/ByName", filings: "https://dos.fl.gov/sunbiz/", registeredAgent: "https://dos.fl.gov/sunbiz/manage-business/efile/registered-agent/" },
+      ga: { name: "Georgia", office: "Georgia Secretary of State Corporations Division", search: "https://ecorp.sos.ga.gov/BusinessSearch", filings: "https://sos.ga.gov/page/georgia-business-forms", registeredAgent: "https://sos.ga.gov/page/business-faq" },
+      hi: { name: "Hawaii", office: "Hawaii Business Registration Division", search: "https://hbe.ehawaii.gov/documents/search.html", filings: "https://cca.hawaii.gov/breg/", registeredAgent: "https://cca.hawaii.gov/breg/" },
+      id: { name: "Idaho", office: "Idaho Secretary of State", search: "https://sosbiz.idaho.gov/search/business", filings: "https://sos.idaho.gov/business-services-resources/", registeredAgent: "https://sos.idaho.gov/business-services-resources/" },
+      il: { name: "Illinois", office: "Illinois Secretary of State Business Services", search: "https://apps.ilsos.gov/businessentitysearch/", filings: "https://www.ilsos.gov/departments/business_services/home.html", registeredAgent: "https://www.ilsos.gov/departments/business_services/home.html" },
+      in: { name: "Indiana", office: "Indiana Secretary of State Business Services", search: "https://bsd.sos.in.gov/publicbusinesssearch", filings: "https://inbiz.in.gov/", registeredAgent: "https://inbiz.in.gov/business-filings/registered-agent" },
+      ia: { name: "Iowa", office: "Iowa Secretary of State", search: "https://sos.iowa.gov/search/business/search.aspx", filings: "https://sos.iowa.gov/business/", registeredAgent: "https://sos.iowa.gov/business/" },
+      ks: { name: "Kansas", office: "Kansas Secretary of State", search: "https://www.kansas.gov/bess/flow/main?execution=e1s1", filings: "https://sos.ks.gov/business/business.html", registeredAgent: "https://sos.ks.gov/business/business.html" },
+      ky: { name: "Kentucky", office: "Kentucky Secretary of State", search: "https://web.sos.ky.gov/ftsearch/", filings: "https://www.sos.ky.gov/bus/Pages/default.aspx", registeredAgent: "https://www.sos.ky.gov/bus/Pages/default.aspx" },
+      la: { name: "Louisiana", office: "Louisiana Secretary of State", search: "https://coraweb.sos.la.gov/commercialsearch/commercialsearch.aspx", filings: "https://www.sos.la.gov/BusinessServices/", registeredAgent: "https://www.sos.la.gov/BusinessServices/" },
+      me: { name: "Maine", office: "Maine Secretary of State Bureau of Corporations", search: "https://icrs.informe.org/nei-sos-icrs/ICRS", filings: "https://www.maine.gov/sos/cec/corp/", registeredAgent: "https://www.maine.gov/sos/cec/corp/" },
+      md: { name: "Maryland", office: "Maryland Department of Assessments and Taxation", search: "https://egov.maryland.gov/BusinessExpress/EntitySearch", filings: "https://businessexpress.maryland.gov/", registeredAgent: "https://dat.maryland.gov/businesses/Pages/default.aspx" },
+      ma: { name: "Massachusetts", office: "Massachusetts Secretary of the Commonwealth", search: "https://corp.sec.state.ma.us/corpweb/CorpSearch/CorpSearch.aspx", filings: "https://www.sec.state.ma.us/divisions/corporations/corporations.htm", registeredAgent: "https://www.sec.state.ma.us/divisions/corporations/corporations.htm" },
+      mi: { name: "Michigan", office: "Michigan LARA Corporations Division", search: "https://cofs.lara.state.mi.us/SearchApi/Search/Search", filings: "https://www.michigan.gov/lara/bureau-list/cscl/corps", registeredAgent: "https://www.michigan.gov/lara/bureau-list/cscl/corps" },
+      mn: { name: "Minnesota", office: "Minnesota Secretary of State", search: "https://mblsportal.sos.state.mn.us/Business/Search", filings: "https://www.sos.state.mn.us/business-liens/", registeredAgent: "https://www.sos.state.mn.us/business-liens/business-help/registered-agent/" },
+      ms: { name: "Mississippi", office: "Mississippi Secretary of State", search: "https://corp.sos.ms.gov/corp/portal/c/page/corpBusinessIdSearch/portal.aspx", filings: "https://www.sos.ms.gov/business-services", registeredAgent: "https://www.sos.ms.gov/business-services" },
+      mo: { name: "Missouri", office: "Missouri Secretary of State", search: "https://bsd.sos.mo.gov/BusinessEntity/BESearch.aspx", filings: "https://www.sos.mo.gov/business", registeredAgent: "https://www.sos.mo.gov/business" },
+      mt: { name: "Montana", office: "Montana Secretary of State", search: "https://biz.sosmt.gov/search/business", filings: "https://sosmt.gov/business/", registeredAgent: "https://sosmt.gov/business/" },
+      ne: { name: "Nebraska", office: "Nebraska Secretary of State", search: "https://www.nebraska.gov/sos/corp/corpsearch.cgi", filings: "https://sos.nebraska.gov/business-services", registeredAgent: "https://sos.nebraska.gov/business-services" },
+      nv: { name: "Nevada", office: "Nevada Secretary of State", search: "https://esos.nv.gov/EntitySearch/OnlineEntitySearch", filings: "https://www.nvsos.gov/sos/businesses", registeredAgent: "https://www.nvsos.gov/sos/businesses/registered-agents" },
+      nh: { name: "New Hampshire", office: "New Hampshire Secretary of State", search: "https://quickstart.sos.nh.gov/online/BusinessInquire", filings: "https://www.sos.nh.gov/corporation-ucc-securities/corporation", registeredAgent: "https://www.sos.nh.gov/corporation-ucc-securities/corporation" },
+      nj: { name: "New Jersey", office: "New Jersey Division of Revenue and Enterprise Services", search: "https://www.njportal.com/DOR/BusinessNameSearch/Search/BusinessName", filings: "https://www.nj.gov/treasury/revenue/business.shtml", registeredAgent: "https://www.nj.gov/treasury/revenue/business.shtml" },
+      nm: { name: "New Mexico", office: "New Mexico Secretary of State", search: "https://enterprise.sos.nm.gov/search/business", filings: "https://www.sos.nm.gov/business-services/", registeredAgent: "https://www.sos.nm.gov/business-services/" },
+      ny: { name: "New York", office: "New York Department of State", search: "https://apps.dos.ny.gov/publicInquiry/", filings: "https://dos.ny.gov/form-corporation-or-business", registeredAgent: "https://dos.ny.gov/service-process" },
+      nc: { name: "North Carolina", office: "North Carolina Secretary of State", search: "https://www.sosnc.gov/online_services/search/by_title/_Business_Registration", filings: "https://www.sosnc.gov/divisions/business_registration", registeredAgent: "https://www.sosnc.gov/divisions/business_registration" },
+      nd: { name: "North Dakota", office: "North Dakota Secretary of State", search: "https://firststop.sos.nd.gov/search/business", filings: "https://www.sos.nd.gov/business/business-services", registeredAgent: "https://www.sos.nd.gov/business/business-services" },
+      oh: { name: "Ohio", office: "Ohio Secretary of State", search: "https://businesssearch.ohiosos.gov/", filings: "https://www.ohiosos.gov/businesses/", registeredAgent: "https://www.ohiosos.gov/businesses/filing-forms--fee-schedule/" },
+      ok: { name: "Oklahoma", office: "Oklahoma Secretary of State", search: "https://www.sos.ok.gov/corp/corpInquiryFind.aspx", filings: "https://www.sos.ok.gov/business/default.aspx", registeredAgent: "https://www.sos.ok.gov/business/default.aspx" },
+      or: { name: "Oregon", office: "Oregon Secretary of State", search: "https://sos.oregon.gov/business/Pages/find.aspx", filings: "https://sos.oregon.gov/business/Pages/default.aspx", registeredAgent: "https://sos.oregon.gov/business/Pages/registered-agents-service-of-process.aspx" },
+      pa: { name: "Pennsylvania", office: "Pennsylvania Department of State", search: "https://file.dos.pa.gov/search/business", filings: "https://www.pa.gov/agencies/dos/programs/business-charities/business.html", registeredAgent: "https://www.pa.gov/agencies/dos/programs/business-charities/business.html" },
+      ri: { name: "Rhode Island", office: "Rhode Island Secretary of State", search: "https://business.sos.ri.gov/CorpWeb/CorpSearch/CorpSearch.aspx", filings: "https://www.sos.ri.gov/divisions/business-services", registeredAgent: "https://www.sos.ri.gov/divisions/business-services" },
+      sc: { name: "South Carolina", office: "South Carolina Secretary of State", search: "https://businessfilings.sc.gov/BusinessFiling/Entity/Search", filings: "https://sos.sc.gov/services-and-filings/business-entities", registeredAgent: "https://sos.sc.gov/services-and-filings/business-entities" },
+      sd: { name: "South Dakota", office: "South Dakota Secretary of State", search: "https://sosenterprise.sd.gov/BusinessServices/Business/FilingSearch.aspx", filings: "https://sdsos.gov/business-services/default.aspx", registeredAgent: "https://sdsos.gov/business-services/default.aspx" },
+      tn: { name: "Tennessee", office: "Tennessee Secretary of State", search: "https://tnbear.tn.gov/Ecommerce/FilingSearch.aspx", filings: "https://sos.tn.gov/businesses", registeredAgent: "https://sos.tn.gov/businesses" },
+      tx: { name: "Texas", office: "Texas Secretary of State", search: "https://mycpa.cpa.state.tx.us/coa/", filings: "https://www.sos.state.tx.us/corp/index.shtml", registeredAgent: "https://www.sos.state.tx.us/corp/registeredagent.shtml" },
+      ut: { name: "Utah", office: "Utah Division of Corporations", search: "https://secure.utah.gov/bes/", filings: "https://corporations.utah.gov/", registeredAgent: "https://corporations.utah.gov/" },
+      vt: { name: "Vermont", office: "Vermont Secretary of State", search: "https://bizfilings.vermont.gov/online/BusinessInquire/", filings: "https://sos.vermont.gov/corporations/", registeredAgent: "https://sos.vermont.gov/corporations/" },
+      va: { name: "Virginia", office: "Virginia State Corporation Commission", search: "https://cis.scc.virginia.gov/EntitySearch/Index", filings: "https://scc.virginia.gov/pages/Businesses", registeredAgent: "https://scc.virginia.gov/pages/Registered-Agent-and-Office-Addresses" },
+      wa: { name: "Washington", office: "Washington Secretary of State", search: "https://ccfs.sos.wa.gov/#/BusinessSearch", filings: "https://www.sos.wa.gov/corporations-charities", registeredAgent: "https://www.sos.wa.gov/corporations-charities" },
+      wv: { name: "West Virginia", office: "West Virginia Secretary of State", search: "https://apps.wv.gov/SOS/BusinessEntitySearch/", filings: "https://sos.wv.gov/business/Pages/default.aspx", registeredAgent: "https://sos.wv.gov/business/Pages/default.aspx" },
+      wi: { name: "Wisconsin", office: "Wisconsin Department of Financial Institutions", search: "https://www.wdfi.org/apps/CorpSearch/Search.aspx", filings: "https://www.wdfi.org/corporations/", registeredAgent: "https://www.wdfi.org/corporations/" },
+      wy: { name: "Wyoming", office: "Wyoming Secretary of State", search: "https://wyobiz.wyo.gov/Business/FilingSearch.aspx", filings: "https://sos.wyo.gov/business/default.aspx", registeredAgent: "https://sos.wyo.gov/business/default.aspx" }
+    };
 
     const checklists = {
       "de-check": ["Choose Delaware LLC name", "Hire Delaware registered agent", "File Certificate of Formation", "Create operating agreement", "Track Delaware file number", "Evaluate foreign qualification in operating states", "Open banking only after EIN and records are consistent"],
@@ -647,9 +753,35 @@
       });
       root.append(grid);
     }
+    function populateStateLookup() {
+      const select = document.getElementById("lookupState");
+      Object.entries(stateResources).forEach(([key, item]) => {
+        const option = document.createElement("option");
+        option.value = key;
+        option.textContent = item.name;
+        select.append(option);
+      });
+    }
+    function renderStateResources() {
+      const select = document.getElementById("lookupState");
+      const item = stateResources[select.value] || stateResources.wy;
+      document.getElementById("stateResourcePanel").innerHTML = `
+        <h3>${item.name} official business resources</h3>
+        <p><strong>Office:</strong> ${item.office}</p>
+        <div class="lookup-actions">
+          <a class="button" href="${item.search}" target="_blank" rel="noopener">Entity/name search</a>
+          <a class="button" href="${item.filings}" target="_blank" rel="noopener">Business filings</a>
+          <a class="button" href="${item.registeredAgent}" target="_blank" rel="noopener">Registered-agent information</a>
+        </div>
+        <p class="small">Use the official portal to verify name availability, formation forms, registered-agent rules, foreign qualification, annual reports, and current fees. Some portals require you to type the entity name after the page opens.</p>
+      `;
+    }
+    populateStateLookup();
     Object.entries(checklists).forEach(([key, items]) => makeChecklist(key, items));
     document.querySelectorAll("[data-record]").forEach(el => makeRecord(el.dataset.record));
     document.querySelectorAll("[data-save]").forEach(el => bind(el, el.dataset.save, el.getAttribute("value") || ""));
+    document.getElementById("lookupState").addEventListener("change", renderStateResources);
+    renderStateResources();
 
     const planRoot = document.getElementById("businessPlanFields");
     planFields.forEach(name => {
@@ -723,15 +855,9 @@
       }
     });
     document.getElementById("lookupBtn").addEventListener("click", () => {
-      const portal = document.getElementById("lookupState").value;
+      const item = stateResources[document.getElementById("lookupState").value] || stateResources.wy;
       const name = encodeURIComponent(document.getElementById("entityName").value || "");
-      const urls = {
-        wy: "https://wyobiz.wyo.gov/Business/FilingSearch.aspx",
-        de: "https://icis.corp.delaware.gov/ecorp/entitysearch/namesearch.aspx",
-        nm: "https://enterprise.sos.nm.gov/search/business",
-        irs: "https://www.irs.gov/businesses/employer-identification-number"
-      };
-      window.open(urls[portal] + (name ? `#query=${name}` : ""), "_blank", "noopener");
+      window.open(item.search + (name ? `#query=${name}` : ""), "_blank", "noopener");
     });
   </script>
 </body>
