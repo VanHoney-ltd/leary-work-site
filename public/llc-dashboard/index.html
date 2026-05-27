@@ -19,6 +19,20 @@
       --blue: #2867a8;
       --shadow: 0 12px 30px rgba(24, 32, 42, .08);
     }
+    [data-theme="dark"] {
+      --bg: #101419;
+      --panel: #171d24;
+      --ink: #eef3f8;
+      --muted: #a8b4c2;
+      --line: #33404e;
+      --soft: #202a34;
+      --navy: #0c1722;
+      --green: #2f9f7a;
+      --gold: #d19a3a;
+      --red: #d16059;
+      --blue: #6fb3ff;
+      --shadow: 0 12px 30px rgba(0,0,0,.28);
+    }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
@@ -34,6 +48,17 @@
       color: #fff;
       padding: 24px 16px 18px;
     }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+      color: #d7e3ef;
+      font-size: .86rem;
+      font-weight: 800;
+      letter-spacing: .02em;
+    }
+    .brand img { width: 42px; height: 42px; border-radius: 8px; object-fit: cover; background: #fff; }
     .wrap { max-width: 1180px; margin: 0 auto; }
     .topbar {
       display: flex;
@@ -58,17 +83,53 @@
     }
     header button { border-color: rgba(255,255,255,.28); background: rgba(255,255,255,.11); color: #fff; }
     button.primary { background: var(--green); border-color: var(--green); color: #fff; }
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 5;
-      background: rgba(255,255,255,.96);
-      border-bottom: 1px solid var(--line);
-      overflow-x: auto;
-      white-space: nowrap;
+    .menu-toggle {
+      width: 46px;
+      min-height: 46px;
+      position: fixed;
+      top: 14px;
+      right: 14px;
+      z-index: 30;
+      border-radius: 8px;
+      background: var(--panel);
+      border-color: var(--line);
+      box-shadow: var(--shadow);
     }
-    nav .wrap { display: flex; gap: 8px; padding: 9px 16px; }
-    nav a { color: var(--ink); text-decoration: none; font-size: .88rem; padding: 7px 9px; border-radius: 5px; background: var(--soft); }
+    .burger-stack, .burger-stack::before, .burger-stack::after {
+      content: "";
+      display: block;
+      width: 22px;
+      height: 3px;
+      margin: 0 auto;
+      border-radius: 999px;
+      background: var(--ink);
+      transition: transform .24s ease, opacity .2s ease;
+    }
+    .burger-stack::before { transform: translateY(-8px); }
+    .burger-stack::after { transform: translateY(5px); }
+    .menu-toggle[aria-expanded="true"] .burger-stack { transform: rotate(45deg); }
+    .menu-toggle[aria-expanded="true"] .burger-stack::before { transform: rotate(90deg); }
+    .menu-toggle[aria-expanded="true"] .burger-stack::after { opacity: 0; }
+    .menu-panel {
+      position: fixed;
+      inset: 0 0 auto auto;
+      width: min(92vw, 360px);
+      max-height: calc(100vh - 24px);
+      margin: 12px;
+      padding: 66px 14px 14px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      z-index: 20;
+      overflow: auto;
+      transform: translateX(110%) scale(.98);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform .24s ease, opacity .2s ease;
+    }
+    .menu-panel.open { transform: translateX(0) scale(1); opacity: 1; pointer-events: auto; }
+    .menu-panel a { display: block; color: var(--ink); text-decoration: none; padding: 10px; border-radius: 6px; background: var(--soft); margin-bottom: 8px; font-weight: 800; }
     main { padding: 18px 16px 48px; }
     section { margin: 20px auto; }
     h2 { margin: 0 0 12px; font-size: clamp(1.35rem, 4vw, 2rem); }
@@ -100,7 +161,8 @@
     .warn { border-left: 4px solid var(--gold); background: #fff8ec; }
     .danger { border-left: 4px solid var(--red); background: #fff1f0; }
     .good { border-left: 4px solid var(--green); background: #eef8f4; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+    .table-scroll { overflow-x: auto; width: 100%; }
+    table { width: 100%; border-collapse: collapse; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
     th, td { padding: 10px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; font-size: .92rem; }
     th { background: var(--soft); font-size: .82rem; text-transform: uppercase; letter-spacing: .04em; }
     label { display: block; font-size: .82rem; font-weight: 800; color: var(--muted); margin-bottom: 4px; }
@@ -113,6 +175,16 @@
       background: #fff;
       color: var(--ink);
     }
+    [data-theme="dark"] input, [data-theme="dark"] textarea, [data-theme="dark"] select,
+    [data-theme="dark"] .record, [data-theme="dark"] .step, [data-theme="dark"] .node,
+    [data-theme="dark"] .diagram, [data-theme="dark"] .resource-panel {
+      background: #121820;
+      color: var(--ink);
+    }
+    [data-theme="dark"] .warn { background: #2a2115; }
+    [data-theme="dark"] .danger { background: #2a1717; }
+    [data-theme="dark"] .good { background: #14251e; }
+    [data-theme="dark"] .notice { background: #142131; }
     textarea { min-height: 82px; resize: vertical; }
     .fieldgrid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 10px; }
     .record {
@@ -173,7 +245,21 @@
       padding: 12px;
     }
     .resource-panel h3 { margin-bottom: 6px; }
+    .print-footer { display: none; }
+    .compare-controls { margin: 10px 0 14px; }
+    .agent-card { display: grid; gap: 8px; }
+    .money-input { max-width: 120px; }
     footer { padding: 20px 16px 32px; color: var(--muted); }
+    @media (max-width: 759px) {
+      header { padding-right: 68px; }
+      h1 { font-size: clamp(1.55rem, 9vw, 2.4rem); }
+      .actions { width: 100%; }
+      .actions button { flex: 1 1 140px; }
+      table { min-width: 720px; }
+      table { display: block; overflow-x: auto; }
+      .grid.three .card, .grid.two .card { min-width: 0; }
+      .branch { grid-template-columns: 1fr; }
+    }
     @media (min-width: 760px) {
       header { padding: 34px 24px 26px; }
       main { padding: 24px; }
@@ -188,11 +274,24 @@
     @media print {
       body { background: #fff; color: #000; font-size: 11pt; }
       header, nav, .actions, button { display: none !important; }
+      .menu-toggle, .menu-panel { display: none !important; }
       main { padding: 0; }
       section, .card, details { box-shadow: none; break-inside: avoid; }
       details:not([open]) .inside { display: block; }
       summary { border-bottom: 1px solid #aaa; }
       input, textarea, select { border: 1px solid #999; min-height: 28px; }
+      .print-footer {
+        display: block;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        font-size: 9pt;
+        color: #555;
+        border-top: 1px solid #aaa;
+        padding-top: 4px;
+        background: #fff;
+      }
     }
   </style>
 </head>
@@ -200,21 +299,22 @@
   <header>
     <div class="wrap topbar">
       <div>
+        <div class="brand"><img src="/logo.png" alt="iON Data Management Systems logo"><span>iON Data Management Systems</span></div>
         <h1>Nationwide LLC Formation Strategy Dashboard</h1>
         <p class="subtitle">A public educational dashboard for comparing Wyoming, Delaware, and New Mexico LLC formation, registered agents, trust-owned structures, holding-company design, privacy limits, and nationwide foreign qualification planning.</p>
       </div>
       <div class="actions">
+        <button type="button" id="themeBtn">Dark mode</button>
         <button type="button" id="exportBtn">Export JSON</button>
-        <button type="button" onclick="window.print()">Print packet</button>
+        <button type="button" id="pdfBtn">Editable PDF packet</button>
         <button type="button" id="resetBtn">Clear saved fields</button>
       </div>
     </div>
   </header>
-  <nav>
-    <div class="wrap">
-      <a href="#overview">Overview</a><a href="#operating-state">Formation vs Operation</a><a href="#paths">State Comparison</a><a href="#agents">Registered Agents</a><a href="#trusts">Trust-Owned LLCs</a><a href="#foreign">Foreign Qualification</a><a href="#funding">Funding</a><a href="#structure">Holding Companies</a><a href="#privacy">Privacy</a><a href="#lookup">Entity Lookup</a><a href="#resources">Official Resources</a><a href="#tracking">Trackers</a>
-    </div>
-  </nav>
+  <button type="button" class="menu-toggle" id="menuBtn" aria-label="Open section menu" aria-expanded="false"><span class="burger-stack"></span></button>
+  <div class="menu-panel" id="menuPanel" aria-label="Section menu">
+    <a href="#overview">Overview</a><a href="#operating-state">Formation vs Operation</a><a href="#paths">State Comparison</a><a href="#agents">Registered Agents</a><a href="#trusts">Trust-Owned LLCs</a><a href="#foreign">Foreign Qualification</a><a href="#funding">Funding</a><a href="#structure">Holding Companies</a><a href="#privacy">Privacy</a><a href="#lookup">Entity Lookup</a><a href="#resources">Official Resources</a><a href="#tracking">Document Tracker</a>
+  </div>
   <main class="wrap">
     <section id="overview" class="grid three">
       <div class="card good"><h3>Choose for the business model</h3><p>No formation state is universally best. The useful question is whether the jurisdiction fits the entity's operational footprint, ownership structure, investor expectations, maintenance budget, and compliance plan.</p></div>
@@ -244,23 +344,30 @@
         </div>
       </div>
       <div class="diagram" aria-label="Foreign qualification diagram">
-        <div class="node">Formation State LLC</div>
-        <div class="arrow">down</div>
-        <div class="node">Business Activity in Another State</div>
-        <div class="arrow">down</div>
-        <div class="node">Foreign Qualification / Certificate of Authority</div>
+        <div class="node">1. You form the LLC in one state</div>
+        <div class="arrow">then</div>
+        <div class="node">2. The business regularly operates in another state</div>
+        <div class="arrow">so</div>
+        <div class="node">3. That other state may require foreign qualification</div>
       </div>
+      <p class="small">This diagram is not a hierarchy. It is a sequence: first, the LLC is created somewhere; next, the business activity happens somewhere; then, the operating state may require a certificate of authority before the out-of-state LLC can legally transact business there.</p>
     </section>
 
     <section id="paths">
       <div class="split-title"><h2>Wyoming vs Delaware vs New Mexico</h2><span class="badge">Compare by fit, not hype</span></div>
+      <p>These three states are shown because they are the most commonly marketed choices for privacy-oriented LLC planning, investor-facing startup planning, and low-maintenance public record minimization. They are useful comparison examples, not universal recommendations. Use the controls below to compare any three states from the official state resource database.</p>
+      <div class="fieldgrid three compare-controls">
+        <div><label for="compareA">Compare state 1</label><select id="compareA"></select></div>
+        <div><label for="compareB">Compare state 2</label><select id="compareB"></select></div>
+        <div><label for="compareC">Compare state 3</label><select id="compareC"></select></div>
+      </div>
+      <div id="comparePanel" class="resource-panel"></div>
       <div class="grid three">
         <details open>
           <summary>Delaware LLC <span>+</span></summary>
           <div class="inside">
             <p><strong>Best fit:</strong> venture-backed startups, investor-facing companies, complex equity plans, IP holding entities, and businesses that value Delaware's corporate-law familiarity. Maintenance may be more expensive than Wyoming or New Mexico.</p>
             <div class="record"><h3>Checklist</h3><div data-checklist="de-check"></div></div>
-            <div class="record"><h3>Document tracker</h3><div data-record="delaware"></div></div>
           </div>
         </details>
         <details open>
@@ -268,7 +375,6 @@
           <div class="inside">
             <p><strong>Best fit:</strong> privacy-oriented small businesses, holding companies, online businesses, agencies, and owners who want relatively low maintenance. It is not automatically the right state if the business mainly operates elsewhere.</p>
             <div class="record"><h3>Checklist</h3><div data-checklist="wy-check"></div></div>
-            <div class="record"><h3>Document tracker</h3><div data-record="wyoming"></div></div>
           </div>
         </details>
         <details open>
@@ -276,7 +382,6 @@
           <div class="inside">
             <p><strong>Best fit:</strong> small owner-operated companies, public record minimization, low state maintenance, and simple administrative structures. It may be less familiar for investors or complex financing than Delaware.</p>
             <div class="record"><h3>Checklist</h3><div data-checklist="nm-check"></div></div>
-            <div class="record"><h3>Document tracker</h3><div data-record="newmexico"></div></div>
           </div>
         </details>
       </div>
@@ -301,9 +406,9 @@
         <table>
           <thead><tr><th>Path</th><th>Formation filing</th><th>Foreign qualification</th><th>Registered agent / address service</th><th>Plain-English note</th></tr></thead>
           <tbody>
-            <tr><td>Delaware</td><td><input data-save="cost_de_state" value="Enter current Delaware certificate cost"></td><td><input data-save="cost_de_foreign" value="Enter each operating-state filing cost"></td><td><input data-save="cost_de_ra" value="Annual agent and mail/address quote"></td><td>Often chosen for investor familiarity and mature business law. Add Delaware tax/maintenance and any state where the business actually operates.</td></tr>
-            <tr><td>Wyoming</td><td><input data-save="cost_wy_state" value="Enter current Wyoming filing cost"></td><td><input data-save="cost_wy_foreign" value="Enter each operating-state filing cost"></td><td><input data-save="cost_wy_ra" value="Annual agent and mail/address quote"></td><td>Often chosen for public record minimization and lower maintenance. Still budget foreign qualification where the business has real activity.</td></tr>
-            <tr><td>New Mexico</td><td><input data-save="cost_nm_state" value="Enter current New Mexico filing cost"></td><td><input data-save="cost_nm_foreign" value="Enter each operating-state filing cost"></td><td><input data-save="cost_nm_ra" value="Annual agent and mail/address quote"></td><td>Often chosen for simple maintenance. Check whether banks, licenses, marketplaces, and operating states accept the address setup you plan to use.</td></tr>
+            <tr><td>Delaware</td><td><input class="money-input" data-save="cost_de_state" value="$"></td><td><input class="money-input" data-save="cost_de_foreign" value="$"></td><td><input class="money-input" data-save="cost_de_ra" value="$"></td><td>Often chosen for investor familiarity and mature business law. Add Delaware tax/maintenance and any state where the business actually operates.</td></tr>
+            <tr><td>Wyoming</td><td><input class="money-input" data-save="cost_wy_state" value="$"></td><td><input class="money-input" data-save="cost_wy_foreign" value="$"></td><td><input class="money-input" data-save="cost_wy_ra" value="$"></td><td>Often chosen for public record minimization and lower maintenance. Still budget foreign qualification where the business has real activity.</td></tr>
+            <tr><td>New Mexico</td><td><input class="money-input" data-save="cost_nm_state" value="$"></td><td><input class="money-input" data-save="cost_nm_foreign" value="$"></td><td><input class="money-input" data-save="cost_nm_ra" value="$"></td><td>Often chosen for simple maintenance. Check whether banks, licenses, marketplaces, and operating states accept the address setup you plan to use.</td></tr>
           </tbody>
         </table>
         <p class="small">Do not compare only the formation filing fee. A realistic first-year comparison includes formation, registered agent, operating agreement help, EIN setup if paid, business address/mail service, foreign qualification, state/local licenses, tax accounts, bookkeeping, bank minimums, insurance, and annual-report or franchise-tax deadlines.</p>
@@ -327,7 +432,7 @@
       <div class="grid three">
         <div class="card"><h3>What they do</h3><p>Receive legal notices, state correspondence, compliance mail, annual-report notices, and lawsuit papers at a reliable in-state physical address during business hours.</p></div>
         <div class="card"><h3>What they do not do</h3><p>They do not own the LLC, become the trustee, act as manager/member, run the business, replace a lawyer, or automatically serve as your everyday mailing address.</p></div>
-        <div class="card"><h3>Who offers it</h3><p>Yes. Many businesses sell registered-agent services: national formation companies, law firms, CPA firms, local business-service offices, and state-specific registered-agent companies.</p></div>
+        <div class="card"><h3>Registered-agent service providers</h3><p>Registered-agent service is a normal commercial service. Providers include national formation companies, law firms, CPA firms, local business-service offices, and state-specific registered-agent companies. The key is whether they receive service of process reliably and whether they also handle ordinary mail.</p></div>
       </div>
       <div class="grid two" style="margin-top:12px">
         <div class="card notice">
@@ -336,8 +441,8 @@
           <p>Some providers bundle both services. Others only receive legal notices and will reject ordinary mail. Ask the provider exactly what they accept before listing the address with banks, vendors, IRS records, marketplaces, licenses, or state registrations.</p>
         </div>
         <div class="card warn">
-          <h3>DakotaPost-style services</h3>
-          <p>Yes, there are businesses similar to DakotaPost that offer mail forwarding, virtual mailbox, domicile/residency support, vehicle-registration help, and sometimes registered-agent services. South Dakota has a market for this because some people use mail-forwarding addresses for travel, RV life, fleet/mail management, or state residency planning.</p>
+          <h3>Public service notice: mail-forwarding and domicile services</h3>
+          <p>Some businesses offer mail forwarding, virtual mailbox, domicile/residency support, vehicle-registration help, and sometimes registered-agent services. South Dakota has a market for this because some people use mail-forwarding addresses for travel, RV life, fleet/mail management, or state residency planning.</p>
           <p>Be careful: mail forwarding, legal domicile, tax residency, voter registration, driver's license, vehicle registration, insurance garaging address, and business registered-agent service are different legal questions. A mailbox service may be accepted for one purpose but rejected for another.</p>
         </div>
       </div>
@@ -351,6 +456,29 @@
         </tbody>
       </table>
       <p class="small">Official USPS terminology: a Commercial Mail Receiving Agency is a private business that receives mail for customers and delivers it to a private mailbox or forwards it. USPS Form 1583 authorizes a CMRA to receive mail for you. This does not decide whether a state, bank, DMV, insurer, or licensing agency will accept that address for its own rules.</p>
+      <details style="margin-top:12px" open>
+        <summary>Known registered-agent and address providers <span>▾</span></summary>
+        <div class="inside">
+          <div class="table-scroll">
+            <table>
+              <thead><tr><th>Provider</th><th>Services commonly offered</th><th>Common business fit</th><th>Link</th></tr></thead>
+              <tbody>
+                <tr><td>Northwest Registered Agent</td><td>Registered agent, formation, mail handling options, compliance reminders.</td><td>Consulting, tech, creative services, construction, small operators wanting privacy-oriented service.</td><td><a href="https://www.northwestregisteredagent.com/">Website</a></td></tr>
+                <tr><td>CSC</td><td>Enterprise registered agent, entity management, compliance, UCC, corporate services.</td><td>Large companies, finance, healthcare, real estate, multi-state operators, regulated industries.</td><td><a href="https://www.cscglobal.com/service/corporate-filings/registered-agent/">Website</a></td></tr>
+                <tr><td>CT Corporation</td><td>Registered agent, compliance, entity management, legal operations support.</td><td>Enterprise, medical, food/hospitality groups, construction firms, multi-location companies.</td><td><a href="https://www.wolterskluwer.com/en/solutions/ct-corporation/registered-agent-services">Website</a></td></tr>
+                <tr><td>Harbor Compliance</td><td>Registered agent, licensing, nonprofit registrations, compliance tracking.</td><td>Nonprofits, regulated services, contractors, healthcare-adjacent businesses, multi-state licensing.</td><td><a href="https://www.harborcompliance.com/registered-agent">Website</a></td></tr>
+                <tr><td>Registered Agents Inc.</td><td>Registered agent, business address options, entity services.</td><td>Small businesses, online sellers, consultants, private holding companies.</td><td><a href="https://www.registeredagentsinc.com/">Website</a></td></tr>
+                <tr><td>InCorp</td><td>Registered agent, entity formation, compliance alerts.</td><td>Small to mid-size companies, construction, consulting, retail, online businesses.</td><td><a href="https://www.incorp.com/registered-agent-services/">Website</a></td></tr>
+                <tr><td>LegalZoom</td><td>Formation, registered agent, legal document marketplace, compliance products.</td><td>First-time founders, artists, food/hospitality startups, simple service businesses.</td><td><a href="https://www.legalzoom.com/business/business-formation/registered-agent-overview.html">Website</a></td></tr>
+                <tr><td>ZenBusiness</td><td>Formation, registered agent, compliance, banking/website add-ons.</td><td>Freelancers, consulting, ecommerce, art, early-stage local businesses.</td><td><a href="https://www.zenbusiness.com/registered-agent/">Website</a></td></tr>
+                <tr><td>Bizee</td><td>Formation, registered agent, compliance reminders.</td><td>Budget-conscious startups, online shops, consulting, small local services.</td><td><a href="https://bizee.com/registered-agent">Website</a></td></tr>
+                <tr><td>DakotaPost</td><td>Mail forwarding, South Dakota residency support, vehicle services, registered-agent options.</td><td>Travelers, RVers, fleet/remote workers, address-forwarding needs that require careful compliance review.</td><td><a href="https://www.dakotapost.net/">Website</a></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="small">This is an educational list, not an endorsement. Match the provider to your state, industry, mail needs, licensing needs, and whether you need legal notices only or ordinary mail forwarding too.</p>
+        </div>
+      </details>
     </section>
 
     <section id="trusts" class="card">
@@ -388,14 +516,15 @@
         </div>
       </div>
       <div class="diagram" aria-label="Trust owned LLC diagram">
-        <div class="node">Revocable Living Trust</div>
-        <div class="arrow">down</div>
-        <div class="node">LLC Membership Interest</div>
-        <div class="arrow">down</div>
-        <div class="node">Holding or Operating LLC</div>
+        <div class="node">1. The trust is the ownership plan</div>
+        <div class="arrow">owns</div>
+        <div class="node">2. The LLC membership interest</div>
+        <div class="arrow">which controls</div>
+        <div class="node">3. The LLC that holds assets or runs the business</div>
       </div>
+      <p class="small">Read this as: the trust owns the company ownership interest. The LLC still does the business work. The trustee signs for the trust when the trust-owned membership interest needs action.</p>
       <details style="margin-top:12px" open>
-        <summary>Practical requirements, translated <span>+</span></summary>
+        <summary>Practical requirements, translated <span>▾</span></summary>
         <div class="inside">
           <div class="grid two">
             <div class="card"><h3>Document the transfer</h3><p>If the LLC already exists, there should usually be an assignment or company record showing the membership interest was moved into the trust. If the LLC is new, the formation and operating agreement can be drafted to show the trust as member from the beginning.</p></div>
@@ -431,6 +560,14 @@
       <div class="myth"><strong>Delaware is always best.</strong><span>Delaware is familiar for investors and complex structures, but may be unnecessary for many small operating companies.</span></div>
       <div class="myth"><strong>Foreign qualification is optional.</strong><span>If state law requires registration based on business activity, skipping it can create penalties, back fees, tax problems, and litigation issues.</span></div>
       <div class="myth"><strong>Public-record privacy removes all traceability.</strong><span>Public record minimization is different from legal traceability. Professional planning should assume lawful traceability exists.</span></div>
+      <div class="myth"><strong>BOI reporting is the same as state public records.</strong><span>They are different systems. State records are maintained by state filing offices. Federal beneficial ownership rules are separate and should be checked directly with <a href="https://www.fincen.gov/boi">FinCEN</a>.</span></div>
+      <div class="myth"><strong>A registered agent address can always be used as a bank address.</strong><span>Many registered agents receive legal notices only. Banks may require a physical business address or verified mailing address under federal customer-identification rules. See <a href="https://www.fincen.gov/resources/statutes-regulations/cdd-final-rule">FinCEN customer due diligence resources</a>.</span></div>
+      <div class="myth"><strong>A virtual mailbox proves legal residency.</strong><span>Mail receiving, domicile, tax residency, vehicle registration, insurance garaging, and business registration have separate rules. USPS CMRA authorization does not force every agency to accept the address.</span></div>
+      <div class="myth"><strong>SBA grants are free money for any startup.</strong><span>SBA says it generally does not provide grants to start or expand ordinary businesses. Start with <a href="https://www.sba.gov/funding-programs/grants">SBA grants</a> and <a href="https://www.grants.gov/search-grants">Grants.gov</a>.</span></div>
+      <div class="myth"><strong>MAWA / Made in America programs are automatic checks.</strong><span>Manufacturing and onshoring initiatives are policy and program pathways, not automatic payments. Review SBA's <a href="https://www.sba.gov/priorities/american-manufacturers">Made in America Manufacturing Initiative</a> and the <a href="https://www.sba.gov/priorities/american-manufacturers/make-onshoring-great-again-portal">Make Onshoring Great Again Portal</a>.</span></div>
+      <div class="myth"><strong>An LLC protects owners from every lawsuit.</strong><span>Limited liability has limits. Personal guarantees, fraud, commingled funds, unpaid taxes, professional duties, payroll issues, and direct personal conduct can still create personal exposure.</span></div>
+      <div class="myth"><strong>No annual report means no compliance.</strong><span>A state may skip routine annual reports for some LLCs, but tax accounts, licenses, registered agent duties, foreign qualification, contracts, insurance, and bookkeeping still matter.</span></div>
+      <div class="myth"><strong>One LLC is enough for every activity.</strong><span>Sometimes one LLC is cleanest. Other times separate entities for operations, IP, real estate, or risky assets may be worth discussing with counsel and a tax professional.</span></div>
     </section>
 
     <section id="checklists" class="grid two">
@@ -506,6 +643,11 @@
             <li><strong>Make Onshoring Great Again Portal:</strong> free SBA resource connecting businesses with verified U.S. manufacturers, producers, and suppliers. <a href="https://www.sba.gov/priorities/american-manufacturers/make-onshoring-great-again-portal">Official source</a>.</li>
             <li><strong>FY2026 small-manufacturer loan-fee waiver:</strong> SBA announced a one-year waiver of most upfront loan fees for eligible small manufacturers in NAICS 31-33. <a href="https://www.sba.gov/article/2025/09/18/sba-waives-loan-fees-small-manufacturers-fiscal-year-2026">Official source</a>.</li>
             <li><strong>Made in America Loan Guarantee:</strong> SBA described a 90% guarantee opportunity for eligible manufacturers under an enhanced International Trade Loan structure beginning May 1, 2026. <a href="https://www.sba.gov/blog/2026/2026-04/sba-support-veteran-manufacturers">Official source</a>.</li>
+            <li><strong>Working Families Tax Cuts Act / small-business tax discussion:</strong> White House summary describes permanent small-business deduction, full expensing, and Opportunity Zone expansion. <a href="https://www.whitehouse.gov/releases/2026/05/president-trump-celebrates-small-business-revival-during-national-small-business-week/">Official source</a>.</li>
+            <li><strong>10-to-1 Deregulation Initiative:</strong> White House fact sheet frames regulatory reduction as entrepreneurship and small-business relief. <a href="https://www.whitehouse.gov/fact-sheets/2025/01/fact-sheet-president-donald-j-trump-launches-massive-10-to-1-deregulation-initiative/">Official source</a>.</li>
+            <li><strong>Fair banking access policy:</strong> White House financial-system fact sheet describes efforts around fair access to banking and financial innovation. <a href="https://www.whitehouse.gov/fact-sheets/2026/05/fact-sheet-president-donald-j-trump-restores-integrity-to-americas-financial-system/">Official source</a>.</li>
+            <li><strong>Made in America truth-in-advertising enforcement:</strong> White House fact sheet describes action against false Made in America claims. <a href="https://www.whitehouse.gov/fact-sheets/2026/03/fact-sheet-president-donald-j-trump-ensures-truthful-advertising-of-products-claiming-to-be-made-in-america/">Official source</a>.</li>
+            <li><strong>United States Investment Accelerator:</strong> White House fact sheet describes federal support for companies seeking to invest and build in the United States. <a href="https://www.whitehouse.gov/fact-sheets/2025/03/fact-sheet-president-donald-j-trump-establishes-the-united-states-investment-accelerator/">Official source</a>.</li>
           </ul>
         </div>
         <div class="card warn">
@@ -535,16 +677,17 @@
     <section id="roi" class="card">
       <h2>Formation and First-Year Cost Calculator</h2>
       <div class="fieldgrid four" id="roiInputs"></div>
+      <p class="small">Use this worksheet by replacing each number with your own estimate. It is for planning only: type startup cash, monthly software, registered agent/address service, state filing, foreign qualification, website, advertising, expected clients, and expected price. The calculator estimates rough break-even timing and revenue scenarios so you can see whether the formation plan is affordable before filing.</p>
       <div class="grid four" style="margin-top:14px">
         <div class="card"><div class="small">Break-even month</div><div class="mathout" id="breakeven">-</div></div>
         <div class="card"><div class="small">Total first-year cost</div><div class="mathout" id="firstYearCost">-</div></div>
         <div class="card"><div class="small">Projected monthly revenue</div><div class="mathout" id="monthlyRevenue">-</div></div>
         <div class="card"><div class="small">Projected annual revenue</div><div class="mathout" id="annualRevenue">-</div></div>
       </div>
-      <table style="margin-top:14px">
+      <div class="table-scroll"><table style="margin-top:14px">
         <thead><tr><th>Scenario</th><th>Assumption</th><th>Monthly revenue</th><th>Annual revenue</th></tr></thead>
         <tbody id="scenarioRows"></tbody>
-      </table>
+      </table></div>
     </section>
 
     <section id="structure">
@@ -607,18 +750,23 @@
 
     <section id="tracking" class="card">
       <h2>Universal Filing, Account, Cost, Due-Date, and Notes Tracker</h2>
-      <p>Use these rows for every document, filing number, account number, contact, cost, due date, and notes item that does not fit elsewhere.</p>
+      <p>Use these rows for every document, filing number, account number, contact, cost, due date, and notes item that does not fit elsewhere. Select a state below to generate a state-specific starter checklist, then use the tracker fields to record your actual documents and deadlines.</p>
+      <div class="fieldgrid two">
+        <div><label for="trackerState">State requirement menu</label><select id="trackerState"></select></div>
+        <div class="resource-panel" id="stateRequirements"></div>
+      </div>
       <div class="grid two">
-        <div class="record"><h3>Formation records</h3><div data-record="formation-extra"></div></div>
-        <div class="record"><h3>Banking and credit records</h3><div data-record="banking-extra"></div></div>
-        <div class="record"><h3>Tax and compliance records</h3><div data-record="tax-extra"></div></div>
-        <div class="record"><h3>Vendor and tool records</h3><div data-record="vendor-extra"></div></div>
+        <div class="record"><h3>Selected-state formation records</h3><div data-record="formation-extra"></div></div>
+        <div class="record"><h3>Registered agent and address records</h3><div data-record="banking-extra"></div></div>
+        <div class="record"><h3>Tax, license, and compliance records</h3><div data-record="tax-extra"></div></div>
+        <div class="record"><h3>Vendor, tool, and insurance records</h3><div data-record="vendor-extra"></div></div>
       </div>
     </section>
   </main>
   <footer class="wrap">
     <p>This dashboard is general educational planning support, not legal, tax, lending, financial, or compliance advice. Confirm current fees, legal duties, tax status, and filing rules with official state offices, the IRS, SBA-approved lenders, and qualified professionals before filing.</p>
   </footer>
+  <div class="print-footer">iON Data Management Systems | Nationwide LLC Formation Strategy Dashboard | Educational material only, not legal/tax advice</div>
 
   <script>
     const storeKey = "nationwideLlcFormationDashboard.v2";
@@ -677,6 +825,12 @@
       wy: { name: "Wyoming", office: "Wyoming Secretary of State", search: "https://wyobiz.wyo.gov/Business/FilingSearch.aspx", filings: "https://sos.wyo.gov/business/default.aspx", registeredAgent: "https://sos.wyo.gov/business/default.aspx" }
     };
 
+    const comparisonNotes = {
+      wy: { privacy: "Often strong", maintenance: "Annual report/license tax", fit: "Privacy-oriented small business, holding company, online service business" },
+      de: { privacy: "Moderate", maintenance: "LLC tax and state maintenance", fit: "Venture-backed startup, investor-facing SaaS, IP/entity planning" },
+      nm: { privacy: "Often strong", maintenance: "Often low routine reporting", fit: "Freelancer, small online business, simple holding company" }
+    };
+
     const checklists = {
       "de-check": ["Choose Delaware LLC name", "Hire Delaware registered agent", "File Certificate of Formation", "Create operating agreement", "Track Delaware file number", "Evaluate foreign qualification in operating states", "Open banking only after EIN and records are consistent"],
       "wy-check": ["Choose Wyoming LLC name", "Hire Wyoming registered agent", "File Articles of Organization", "Create operating agreement", "Track Wyoming filing ID", "Evaluate foreign qualification in operating states", "Calendar Wyoming annual report"],
@@ -713,7 +867,7 @@
       el.dataset.save = key;
       if (state[key] !== undefined) {
         if (el.type === "checkbox") el.checked = !!state[key];
-        else el.value = state[key];
+        else el.value = String(state[key]).startsWith("Enter ") ? "$" : state[key];
       } else if (fallback !== undefined && el.value === "") {
         el.value = fallback;
       }
@@ -762,6 +916,15 @@
         select.append(option);
       });
     }
+    function populateStateSelect(select, selected) {
+      Object.entries(stateResources).forEach(([key, item]) => {
+        const option = document.createElement("option");
+        option.value = key;
+        option.textContent = item.name;
+        if (key === selected) option.selected = true;
+        select.append(option);
+      });
+    }
     function renderStateResources() {
       const select = document.getElementById("lookupState");
       const item = stateResources[select.value] || stateResources.wy;
@@ -776,12 +939,52 @@
         <p class="small">Use the official portal to verify name availability, formation forms, registered-agent rules, foreign qualification, annual reports, and current fees. Some portals require you to type the entity name after the page opens.</p>
       `;
     }
+    function renderComparison() {
+      const keys = ["compareA", "compareB", "compareC"].map(id => document.getElementById(id).value);
+      const rows = keys.map(key => {
+        const item = stateResources[key];
+        const note = comparisonNotes[key] || { privacy: "Check state filings", maintenance: "Check official annual-report and tax rules", fit: "Useful when operations, licensing, customers, or addresses point to this state" };
+        return `<tr><td>${item.name}</td><td>${note.privacy}</td><td>${note.maintenance}</td><td>${note.fit}</td><td><a href="${item.filings}" target="_blank" rel="noopener">Official filings</a></td></tr>`;
+      }).join("");
+      document.getElementById("comparePanel").innerHTML = `
+        <h3>Selected-state comparison</h3>
+        <div class="table-scroll"><table><thead><tr><th>State</th><th>Public privacy</th><th>Maintenance</th><th>Common fit</th><th>Official source</th></tr></thead><tbody>${rows}</tbody></table></div>
+        <p class="small">This comparison is intentionally conservative. Use official filing pages and a professional review before deciding where to form or foreign qualify.</p>
+      `;
+    }
+    function renderStateRequirements() {
+      const key = document.getElementById("trackerState").value;
+      const item = stateResources[key] || stateResources.wy;
+      document.getElementById("stateRequirements").innerHTML = `
+        <h3>${item.name} starter requirements</h3>
+        <ul class="source-list">
+          <li>Verify name availability in the official entity search.</li>
+          <li>Confirm registered-agent physical-address rules.</li>
+          <li>Check formation or foreign qualification forms.</li>
+          <li>Calendar annual report, franchise tax, license, or renewal deadlines if applicable.</li>
+          <li>Check tax registration, local licensing, payroll, sales tax, and industry permits.</li>
+        </ul>
+        <div class="lookup-actions">
+          <a class="button" href="${item.search}" target="_blank" rel="noopener">Search names</a>
+          <a class="button" href="${item.filings}" target="_blank" rel="noopener">Filing page</a>
+          <a class="button" href="${item.registeredAgent}" target="_blank" rel="noopener">Agent info</a>
+        </div>
+      `;
+    }
     populateStateLookup();
+    populateStateSelect(document.getElementById("compareA"), "wy");
+    populateStateSelect(document.getElementById("compareB"), "de");
+    populateStateSelect(document.getElementById("compareC"), "nm");
+    populateStateSelect(document.getElementById("trackerState"), "wy");
     Object.entries(checklists).forEach(([key, items]) => makeChecklist(key, items));
     document.querySelectorAll("[data-record]").forEach(el => makeRecord(el.dataset.record));
     document.querySelectorAll("[data-save]").forEach(el => bind(el, el.dataset.save, el.getAttribute("value") || ""));
     document.getElementById("lookupState").addEventListener("change", renderStateResources);
     renderStateResources();
+    ["compareA", "compareB", "compareC"].forEach(id => document.getElementById(id).addEventListener("change", renderComparison));
+    renderComparison();
+    document.getElementById("trackerState").addEventListener("change", renderStateRequirements);
+    renderStateRequirements();
 
     const planRoot = document.getElementById("businessPlanFields");
     planFields.forEach(name => {
@@ -839,6 +1042,26 @@
     }
     calcRoi();
 
+    const menuBtn = document.getElementById("menuBtn");
+    const menuPanel = document.getElementById("menuPanel");
+    menuBtn.addEventListener("click", () => {
+      const open = menuPanel.classList.toggle("open");
+      menuBtn.setAttribute("aria-expanded", String(open));
+    });
+    menuPanel.querySelectorAll("a").forEach(link => link.addEventListener("click", () => {
+      menuPanel.classList.remove("open");
+      menuBtn.setAttribute("aria-expanded", "false");
+    }));
+
+    function setTheme(next) {
+      document.documentElement.dataset.theme = next;
+      state.theme = next;
+      save();
+      document.getElementById("themeBtn").textContent = next === "dark" ? "Light mode" : "Dark mode";
+    }
+    setTheme(state.theme || "light");
+    document.getElementById("themeBtn").addEventListener("click", () => setTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark"));
+
     document.getElementById("exportBtn").addEventListener("click", () => {
       const blob = new Blob([JSON.stringify({ exportedAt: new Date().toISOString(), data: state }, null, 2)], { type: "application/json" });
       const url = URL.createObjectURL(blob);
@@ -847,6 +1070,11 @@
       a.download = "nationwide-llc-formation-dashboard.json";
       a.click();
       URL.revokeObjectURL(url);
+    });
+    document.getElementById("pdfBtn").addEventListener("click", () => {
+      document.querySelectorAll("details").forEach(d => d.open = true);
+      alert("Use the print dialog to save as PDF. The form fields and editable worksheet values on the page are included in the printable packet.");
+      window.print();
     });
     document.getElementById("resetBtn").addEventListener("click", () => {
       if (confirm("Clear saved dashboard inputs from this browser?")) {
