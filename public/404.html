@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 — NovaSignal</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0A0A1F;
+            color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .video-container {
+            width: 100%;
+            max-width: 960px;
+            padding: 20px;
+        }
+        video {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        .back-link {
+            margin-top: 24px;
+            color: #8B8BFF;
+            text-decoration: none;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            transition: color 0.2s;
+        }
+        .back-link:hover { color: #fff; }
+    </style>
+</head>
+<body>
+    <div class="video-container">
+        <video autoplay loop muted playsinline>
+            <source src="/404-video.mp4" type="video/mp4">
+        </video>
+    </div>
+    <a href="/" class="back-link">← Back to NovaSignal</a>
+</body>
+</html>
